@@ -1,6 +1,6 @@
 # File-Name:       email_classify.R           
-# Date:            2011-11-01                              
-# Author:          Drew Conway (drew.conway@nyu.edu) and John Myles White (jmw@johnmyleswhite.com)                                      
+# Date:            2012-02-10                                
+# Author:          Drew Conway (drew.conway@nyu.edu) and John Myles White (jmw@johnmyleswhite.com)                                     
 # Purpose:         Code for Chapter 3. In this case we introduce the notion of binary classification.
 #                   In machine learning this is a method for determining what of two categories a 
 #                   given observation belongs to.  To show this, we will create a simple naive Bayes 
@@ -8,7 +8,7 @@
 # Data Used:       Email messages contained in data/ directory, source: http://spamassassin.apache.org/publiccorpus/
 # Packages Used:   tm, ggplot2
 
-# All source code is copyright (c) 2011, under the Simplified BSD License.  
+# All source code is copyright (c) 2012, under the Simplified BSD License.  
 # For more information on FreeBSD see: http://www.opensource.org/licenses/bsd-license.php
 
 # All images and materials produced by this code are licensed under the Creative Commons 

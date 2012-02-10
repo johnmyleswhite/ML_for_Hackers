@@ -1,11 +1,11 @@
 # File-Name:       package_installer.R           
-# Date:            2011-11-01                          
+# Date:            2012-02-10                         
 # Author:          Drew Conway (drew.conway@nyu.edu) and John Myles White (jmw@johnmyleswhite.com)
 # Purpose:         Install all of the packages needed for the Machine Learning for Hackers case studies
 # Data Used:       n/a
 # Packages Used:   n/a
 
-# All source code is copyright (c) 2011, under the Simplified BSD License.  
+# All source code is copyright (c) 2012, under the Simplified BSD License.  
 # For more information on FreeBSD see: http://www.opensource.org/licenses/bsd-license.php
 
 # All images and materials produced by this code are licensed under the Creative Commons 

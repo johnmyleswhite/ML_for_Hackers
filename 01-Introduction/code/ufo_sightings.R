@@ -1,7 +1,6 @@
-# File-Name:       ml_basics.R           
-# Date:            2011-11-01                                
-# Author:          Drew Conway
-# Email:           drew.conway@nyu.edu                                      
+# File-Name:       ufo_sightings.R           
+# Date:            2012-02-10                                
+# Author:          Drew Conway (drew.conway@nyu.edu) and John Myles White (jmw@johnmyleswhite.com)                                                                    
 # Purpose:         Code for Chapter 1.  In this case we will review some of the basic
 #                   R functions and coding paradigms we will use throughout this book.
 #                   This includes loading, viewing, and cleaning raw data; as well as
@@ -11,7 +10,7 @@
 # Data Used:       http://www.infochimps.com/datasets/60000-documented-ufo-sightings-with-text-descriptions-and-metada
 # Packages Used:   ggplot2
 
-# All source code is copyright (c) 2011, under the Simplified BSD License.  
+# All source code is copyright (c) 2012, under the Simplified BSD License.  
 # For more information on FreeBSD see: http://www.opensource.org/licenses/bsd-license.php
 
 # All images and materials produced by this code are licensed under the Creative Commons 

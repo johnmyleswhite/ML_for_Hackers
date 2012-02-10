@@ -1,5 +1,5 @@
 # File-Name:       google_sg.R           
-# Date:            2012-01-19                             
+# Date:            2012-02-10                             
 # Author:          Drew Conway (drew.conway@nyu.edu) and John Myles White (jmw@johnmyleswhite.com)                                      
 # Purpose:         File 1 for code from Chapter 11.  This file contains a set of functions for building 
 #                   igraph network object from the Twitter social graphs.  As the initial set of code
@@ -9,7 +9,7 @@
 # Data Used:       Accessed via the Google SocialGraph API, source: http://code.google.com/apis/socialgraph/
 # Packages Used:   igraph, RCurl, RJSONIO
 
-# All source code is copyright (c) 2011, under the Simplified BSD License.  
+# All source code is copyright (c) 2012, under the Simplified BSD License.  
 # For more information on FreeBSD see: http://www.opensource.org/licenses/bsd-license.php
 
 # All images and materials produced by this code are licensed under the Creative Commons 

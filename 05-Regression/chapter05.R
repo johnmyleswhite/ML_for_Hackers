@@ -1,3 +1,22 @@
+# File-Name:       chapter05.R           
+# Date:            2012-02-10                                
+# Author:          Drew Conway (drew.conway@nyu.edu) and John Myles White (jmw@johnmyleswhite.com)                                                                    
+# Purpose:         
+# Data Used:       data/longevity.csv
+# Packages Used:   ggplot2
+
+# All source code is copyright (c) 2012, under the Simplified BSD License.  
+# For more information on FreeBSD see: http://www.opensource.org/licenses/bsd-license.php
+
+# All images and materials produced by this code are licensed under the Creative Commons 
+# Attribution-Share Alike 3.0 United States License: http://creativecommons.org/licenses/by-sa/3.0/us/
+
+# All rights reserved.
+
+# NOTE: If you are running this in the R console you must use the 'setwd' command to set the 
+# working directory for the console to whereever you have saved this file prior to running.
+# Otherwise you will see errors when loading data or saving figures!
+
 library('ggplot2')
 
 # First snippet
