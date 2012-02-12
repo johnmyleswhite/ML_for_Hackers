@@ -1,6 +1,6 @@
 # File-Name:       ufo_sightings.R           
 # Date:            2012-02-10                                
-# Author:          Drew Conway (drew.conway@nyu.edu) and John Myles White (jmw@johnmyleswhite.com)                                                                    
+# Author:          Drew Conway (drew.conway@nyu.edu)
 # Purpose:         Code for Chapter 1.  In this case we will review some of the basic
 #                   R functions and coding paradigms we will use throughout this book.
 #                   This includes loading, viewing, and cleaning raw data; as well as

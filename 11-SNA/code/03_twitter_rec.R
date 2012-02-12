@@ -1,6 +1,6 @@
 # File-Name:       twitter_rec.R
 # Date:            2012-02-10
-# Author:          Drew Conway (drew.conway@nyu.edu) and John Myles White (jmw@johnmyleswhite.com)
+# Author:          Drew Conway (drew.conway@nyu.edu)
 # Purpose:         File 3 for code in Chapter 9.  In the final piece of this case study we design a
 #                   simple social graph reccommendation system based on Twitter data.  Using the
 #                   data generated in the previous files, we can make recommendations for users 

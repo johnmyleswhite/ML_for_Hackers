@@ -1,6 +1,6 @@
 # File-Name:       google_sg.R           
 # Date:            2012-02-10                             
-# Author:          Drew Conway (drew.conway@nyu.edu) and John Myles White (jmw@johnmyleswhite.com)                                      
+# Author:          Drew Conway (drew.conway@nyu.edu)
 # Purpose:         File 1 for code from Chapter 11.  This file contains a set of functions for building 
 #                   igraph network object from the Twitter social graphs.  As the initial set of code
 #                   used in this case, we will write functions that query the Google SocialGraph API

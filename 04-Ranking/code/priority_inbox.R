@@ -1,6 +1,6 @@
 # File-Name:       priority_inbox.R           
 # Date:            2012-02-10                                
-# Author:          Drew Conway (drew.conway@nyu.edu) and John Myles White (jmw@johnmyleswhite.com)
+# Author:          Drew Conway (drew.conway@nyu.edu)
 # Purpose:         Code for Chapter 4.  In this case study we will attempt to write a "priority
 #                   inbox" algorithm for ranking email by some measures of importance.  We will
 #                   define these measures based on a set of email features, which moves beyond

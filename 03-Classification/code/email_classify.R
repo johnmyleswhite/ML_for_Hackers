@@ -1,6 +1,6 @@
 # File-Name:       email_classify.R           
 # Date:            2012-02-10                                
-# Author:          Drew Conway (drew.conway@nyu.edu) and John Myles White (jmw@johnmyleswhite.com)                                     
+# Author:          Drew Conway (drew.conway@nyu.edu)
 # Purpose:         Code for Chapter 3. In this case we introduce the notion of binary classification.
 #                   In machine learning this is a method for determining what of two categories a 
 #                   given observation belongs to.  To show this, we will create a simple naive Bayes 
