@@ -1,6 +1,6 @@
 # File-Name:       twitter_net.R
 # Date:            2012-02-10
-# Author:          Drew Conway (drew.cownway@nyu.edu) and John Myles White (jmw@johnmyleswhite.com)
+# Author:          Drew Conway (drew.cownway@nyu.edu)
 # Purpose:         File 2 for code in Chapter 11.  In this short file we write code for generating the 
 #                   the ego-network for a given Twitter user.  Once the network object has been built we
 #                   add some vertex level attributs, and clean the graph by extracting the 2-corre.  Finally,
