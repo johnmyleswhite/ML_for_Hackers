@@ -1,4 +1,4 @@
-# File-Name:       ufo_sightings.R           
+# File-Name:       chapter01.R           
 # Date:            2012-02-10                                
 # Author:          Drew Conway (drew.conway@nyu.edu)
 # Purpose:         Code for Chapter 1.  In this case we will review some of the basic
