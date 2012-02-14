@@ -1,4 +1,4 @@
-# File-Name:       senate_mds.R
+# File-Name:       chapter09.R
 # Date:            2012-02-10                                
 # Author:          Drew Conway (drew.conway@nyu.edu)
 # Purpose:         Code for Chapter 4.  In this case study we introduce multidimensional scaling (MDS),
