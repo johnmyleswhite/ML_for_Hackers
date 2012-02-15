@@ -1,4 +1,4 @@
-# File-Name:       chapter04.R           
+# File-Name:       priority_inbox.R           
 # Date:            2012-02-10                                
 # Author:          Drew Conway (drew.conway@nyu.edu)
 # Purpose:         Code for Chapter 4.  In this case study we will attempt to write a "priority
