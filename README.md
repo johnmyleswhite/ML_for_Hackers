@@ -4,8 +4,8 @@ This repository contains all of the code examples for [Machine Learning for Hack
 
 ## Authors ##
 
- - Drew Conway, Department of Politics, New York University (<drew.conway@nyu.edu>)
- - John Myles White, Psychology Department, Princeton University (<jmw@johnmyleswhite.com>)
+ - Drew Conway, Department of Politics, New York University [http://drewconway.com/](http://drewconway.com/)
+ - John Myles White, Psychology Department, Princeton University [http://www.johnmyleswhite.com/](http://www.johnmyleswhite.com/)
 
 ## License ##
 
