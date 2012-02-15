@@ -1,4 +1,4 @@
-# File-Name:       chapter03.R           
+# File-Name:       email_classify.R           
 # Date:            2012-02-10                                
 # Author:          Drew Conway (drew.conway@nyu.edu)
 # Purpose:         Code for Chapter 3. In this case we introduce the notion of binary classification.
