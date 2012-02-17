@@ -20,14 +20,14 @@
 library('ggplot2')
 
 # First snippet
-ages <- read.csv('data/longevity.csv')
+ages <- read.csv(file.path('data', 'longevity.csv'))
 
 ggplot(ages, aes(x = AgeAtDeath, fill = factor(Smokes))) +
   geom_density() +
   facet_grid(Smokes ~ .)
 
 # Second snippet
-ages <- read.csv('data/longevity.csv')
+ages <- read.csv(file.path('data', 'longevity.csv'))
 
 guess <- 73
 
@@ -35,7 +35,7 @@ with(ages, mean((AgeAtDeath - guess) ^ 2))
 #[1] 32.991
 
 # Third snippet
-ages <- read.csv('data/longevity.csv')
+ages <- read.csv(file.path('data', 'longevity.csv'))
 
 guess.accuracy <- data.frame()
 
@@ -53,7 +53,7 @@ ggplot(guess.accuracy, aes(x = Guess, y = Error)) +
   geom_line()
 
 # Fourth snippet
-ages <- read.csv('data/longevity.csv')
+ages <- read.csv(file.path('data', 'longevity.csv'))
 
 constant.guess <- with(ages, mean(AgeAtDeath))
 
@@ -75,7 +75,8 @@ with(ages, sqrt(mean((AgeAtDeath - NewPrediction) ^ 2)))
 # Fifth snippet
 library('ggplot2')
 
-heights.weights <- read.csv('data/01_heights_weights_genders.csv',
+heights.weights <- read.csv(file.path('data',
+                                      '01_heights_weights_genders.csv'),
                             header = TRUE,
                             sep = ',')
 
@@ -164,7 +165,7 @@ r2
 #[1] 0.1259502
 
 # Seventeenth snippet
-top.1000.sites <- read.csv('data/top_1000_sites.tsv',
+top.1000.sites <- read.csv(file.path('data', 'top_1000_sites.tsv'),
                            sep = '\t',
                            stringsAsFactors = FALSE)
 
@@ -272,4 +273,3 @@ cor(x, y)
 coef(lm(scale(y) ~ scale(x)))
 # (Intercept) scale(x)
 #-1.386469e-16 9.745586e-01
-
