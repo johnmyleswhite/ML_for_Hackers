@@ -20,7 +20,7 @@
 # NOTE: If you are running this in the R console you must use the 'setwd' command to set the 
 # working directory for the console to whereever you have saved this file prior to running.
 # Otherwise you will see errors when loading data or saving figures!
-                                                   
+                                   
 # Load libraries
 library('tm')
 library('ggplot2')
@@ -294,7 +294,7 @@ term.counts <- function(term.vec, control)
 }
 
 thread.terms <- term.counts(thread.weights$Thread,
-                            control = list(stopwords = stopwords()))
+                            control = list(stopwords = TRUE))
 thread.terms <- names(thread.terms)
 
 term.weights <- sapply(thread.terms,
@@ -309,7 +309,7 @@ term.weights <- data.frame(list(Term = names(term.weights),
 # high words that are particularly HAMMMY.
 
 msg.terms <- term.counts(priority.train$Message,
-                         control = list(stopwords = stopwords(),
+                         control = list(stopwords = TRUE,
                          removePunctuation = TRUE,
                          removeNumbers = TRUE))
 msg.weights <- data.frame(list(Term = names(msg.terms),
@@ -384,12 +384,12 @@ rank.message <- function(path)
   # Next, weight based on terms    
   
   # Weight based on terms in threads
-  thread.terms <- term.counts(msg[3], control = list(stopwords = stopwords()))
+  thread.terms <- term.counts(msg[3], control = list(stopwords = TRUE))
   thread.terms.weights <- get.weights(thread.terms, term.weights)
   
   # Weight based terms in all messages
   msg.terms <- term.counts(msg[4],
-                           control = list(stopwords = stopwords(),
+                           control = list(stopwords = TRUE,
                            removePunctuation = TRUE,
                            removeNumbers = TRUE))
   msg.weights <- get.weights(msg.terms, msg.weights)
