@@ -17,9 +17,8 @@
 # working directory for the console to whereever you have saved this file prior to running.
 # Otherwise you will see errors when loading data or saving figures!
 
-
 # First code snippet
-df <- read.csv('data/example_data.csv')
+df <- read.csv(file.path('data', 'example_data.csv'))
 
 head(df)
 # X Y Label
@@ -82,7 +81,7 @@ rm('knn') # In case you still have our implementation in memory.
 
 library('class')
 
-df <- read.csv('data/example_data.csv')
+df <- read.csv(file.path('data', 'example_data.csv'))
 
 n <- nrow(df)
 
@@ -114,7 +113,7 @@ sum(predictions != test.y)
 #[1] 16
 
 # Eighth code snippet
-installations <- read.csv('data/installations.csv')
+installations <- read.csv(file.path('data', 'installations.csv'))
 
 head(installations)
 # Package User Installed
