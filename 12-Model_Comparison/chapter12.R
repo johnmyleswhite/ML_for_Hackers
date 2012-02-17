@@ -17,11 +17,10 @@
 # working directory for the console to whereever you have saved this file prior to running.
 # Otherwise you will see errors when loading data or saving figures!
 
-
 library('ggplot2')
 
 # First code snippet
-df <- read.csv('data/df.csv')
+df <- read.csv(file.path('data', 'df.csv'))
 
 logit.fit <- glm(Label ~ X + Y,
                  family = binomial(link = 'logit'),
@@ -222,7 +221,7 @@ ggplot(predictions, aes(x = X, y = Y, color = factor(value))) +
   facet_grid(variable ~ .)
 
 # Eleventh code snippet
-load('data/dtm.RData')
+load(file.path('data', 'dtm.RData'))
 
 set.seed(1)
 
