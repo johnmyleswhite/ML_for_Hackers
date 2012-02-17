@@ -343,14 +343,23 @@ for (lambda in lambdas)
 {
   performance <- rbind(performance,
                        data.frame(Lambda = lambda,
-                                  RMSE = rmse(test.y, with(test.df, predict(glmnet.fit, poly(X,
-                                              degree = 10), s = lambda)))))
+                                  RMSE = rmse(test.y,
+                                              with(test.df,
+                                                   predict(glmnet.fit,
+                                                           poly(X, degree = 10),
+                                                           s = lambda)))))
 }
 
 # Twenty-third code snippet
 ggplot(performance, aes(x = Lambda, y = RMSE)) +
   geom_point() +
   geom_line()
+
+# Alternative plot not shown in the book.
+ggplot(performance, aes(x = Lambda, y = RMSE)) +
+  geom_point() +
+  geom_line() +
+  scale_x_log10()
 
 # Twenty-fourth code snippet
 best.lambda <- with(performance, Lambda[which(RMSE == min(RMSE))])
@@ -375,7 +384,8 @@ coef(glmnet.fit, s = best.lambda)
 #10 0.0000000
 
 # Twenty-sixth code snippet
-ranks <- read.csv('data/oreilly.csv', stringsAsFactors = FALSE)
+ranks <- read.csv(file.path('data', 'oreilly.csv'),
+                  stringsAsFactors = FALSE)
 
 library('tm')
 
