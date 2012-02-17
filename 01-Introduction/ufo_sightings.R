@@ -29,7 +29,7 @@ library('ggplot2')    # We'll use ggplot2 for all of our visualizations
 # We also have to alter two defaults; first, we want the strings to not be converted to
 # factor types; and, this data has does not have header labels in the first row, so
 # we want to keep the first row as data.
-ufo <- read.delim("data/ufo/ufo_awesome.tsv",
+ufo <- read.delim(file.path("data", "ufo", "ufo_awesome.tsv"),
                   sep = "\t",
                   stringsAsFactors = FALSE,
                   header = FALSE, 
@@ -125,7 +125,7 @@ quick.hist <- ggplot(ufo.us, aes(x = DateOccurred)) +
   geom_histogram() + 
   scale_x_date(major = "50 years")
 ggsave(plot = quick.hist,
-       filename = 'images/quick_hist.pdf',
+       filename = file.path("images", "quick_hist.pdf"),
        height = 6,
        width = 8)
 
@@ -138,7 +138,7 @@ new.hist <- ggplot(ufo.us, aes(x = DateOccurred)) +
   geom_histogram() +
   scale_x_date(major = "50 years")
 ggsave(plot = quick.hist,
-       filename = "images/new_hist.pdf",
+       filename = file.path("images", "new_hist.pdf"),
        height = 6,
        width = 8)
 
@@ -208,6 +208,6 @@ state.plot <- ggplot(all.sightings, aes(x = YearMonth,y = Sightings)) +
   opts(title = "Number of UFO sightings by Month-Year and U.S. State (1990-2010)")
 # Save the plot as a PDF
 ggsave(plot = state.plot,
-       filename = "images/ufo_sightings.pdf",
+       filename = file.path("images", "ufo_sightings.pdf"),
        width = 14,
        height = 8.5)

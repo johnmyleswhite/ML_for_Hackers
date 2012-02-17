@@ -26,8 +26,8 @@ library('tm')
 library('ggplot2')
 
 # Set the global paths
-data.path <- "../03-Classification/data/"
-easyham.path <- paste(data.path, "easy_ham/", sep = "")
+data.path <- file.path("..", "03-Classification", "data")
+easyham.path <- file.path(data.path, "easy_ham")
 
 # We define a set of function that will extract the data
 # for the feature set we have defined to rank email
@@ -106,7 +106,7 @@ parse.email <- function(path)
 easyham.docs <- dir(easyham.path)
 easyham.docs <- easyham.docs[which(easyham.docs != "cmds")]
 easyham.parse <- lapply(easyham.docs,
-                        function(p) parse.email(paste(easyham.path, p, sep = "")))
+                        function(p) parse.email(file.path(easyham.path, p)))
 
 # Convert raw data from list to data frame
 ehparse.matrix <- do.call(rbind, easyham.parse)
@@ -168,7 +168,7 @@ from.scales <- ggplot(from.ex) +
   theme_bw() +
   opts(axis.text.y = theme_text(size = 5, hjust = 1))
 ggsave(plot = from.scales,
-       filename = "images/0011_from_scales.pdf",
+       filename = file.path("images", "0011_from_scales.pdf"),
        height = 4.8,
        width = 7)
 
@@ -190,7 +190,7 @@ from.rescaled <- ggplot(from.weight, aes(x = 1:nrow(from.weight))) +
   theme_bw() +
   opts(axis.text.y = theme_blank(), axis.text.x = theme_blank())
 ggsave(plot = from.rescaled,
-       filename = "images/0012_from_rescaled.pdf",
+       filename = file.path("images", "0012_from_rescaled.pdf"),
        height = 4.8,
        width = 7)
 
@@ -426,7 +426,7 @@ threshold.plot <- ggplot(train.ranks.df, aes(x = Rank)) +
   scale_fill_manual(values = c("darkred" = "darkred"), legend = FALSE) +
   theme_bw()
 ggsave(plot = threshold.plot,
-       filename = "images/01_threshold_plot.pdf",
+       filename = file.path("images", "01_threshold_plot.pdf"),
        height = 4.7,
        width = 7)
 
@@ -448,7 +448,7 @@ final.df$Date <- date.converter(final.df$Date, pattern1, pattern2)
 final.df <- final.df[rev(with(final.df, order(Date))), ]
 
 # Save final data set and plot results.
-write.csv(final.df, "data/final_df.csv", row.names = FALSE)
+write.csv(final.df, file.path("data", "final_df.csv"), row.names = FALSE)
 
 testing.plot <- ggplot(subset(final.df, Type == "TRAINING"), aes(x = Rank)) +
   stat_density(aes(fill = Type, alpha = 0.65)) +
@@ -459,6 +459,6 @@ testing.plot <- ggplot(subset(final.df, Type == "TRAINING"), aes(x = Rank)) +
   scale_fill_manual(values = c("TRAINING" = "darkred", "TESTING" = "darkblue")) +
   theme_bw()
 ggsave(plot = testing.plot,
-       filename = "images/02_testing_plot.pdf",
+       filename = file.path("images", "02_testing_plot.pdf"),
        height = 4.7,
        width = 7)

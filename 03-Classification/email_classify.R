@@ -25,12 +25,12 @@ library('tm')
 library('ggplot2')
 
 # Set the global paths
-spam.path <- "data/spam/"
-spam2.path <- "data/spam_2/"
-easyham.path <- "data/easy_ham/"
-easyham2.path <- "data/easy_ham_2/"
-hardham.path <- "data/hard_ham/"
-hardham2.path <- "data/hard_ham_2/"
+spam.path <- file.path("data", "spam")
+spam2.path <- file.path("data", "spam_2")
+easyham.path <- file.path("data", "easy_ham")
+easyham2.path <- file.path("data", "easy_ham_2")
+hardham.path <- file.path("data", "hard_ham")
+hardham2.path <- file.path("data", "hard_ham_2")
 
 # Create motivating plot
 x <- runif(1000, 0, 40)
@@ -50,7 +50,7 @@ ex1 <- ggplot(val, aes(x, V2)) +
   xlab("X") +
   ylab("Y")
 ggsave(plot = ex1,
-       filename = "images/00_Ex1.pdf",
+       filename = file.path("images", "00_Ex1.pdf"),
        height = 10,
        width = 10)
 
@@ -137,7 +137,7 @@ classify.email <- function(path, training.df, prior = 0.5, c = 1e-6)
 spam.docs <- dir(spam.path)
 spam.docs <- spam.docs[which(spam.docs != "cmds")]
 all.spam <- sapply(spam.docs,
-                   function(p) get.msg(paste(spam.path, p, sep = "")))
+                   function(p) get.msg(file.path(spam.path, p)))
 
 # Create a DocumentTermMatrix from that vector
 spam.tdm <- get.tdm(all.spam)
@@ -166,7 +166,7 @@ spam.df <- transform(spam.df,
 easyham.docs <- dir(easyham.path)
 easyham.docs <- easyham.docs[which(easyham.docs != "cmds")]
 all.easyham <- sapply(easyham.docs[1:length(spam.docs)],
-                      function(p) get.msg(paste(easyham.path, p, sep = "")))
+                      function(p) get.msg(file.path(easyham.path, p)))
 
 easyham.tdm <- get.tdm(all.easyham)
 
@@ -193,12 +193,10 @@ hardham.docs <- dir(hardham.path)
 hardham.docs <- hardham.docs[which(hardham.docs != "cmds")]
 
 hardham.spamtest <- sapply(hardham.docs,
-                           function(p) classify.email(paste(hardham.path, p, sep = ""),
-                           training.df = spam.df))
+                           function(p) classify.email(file.path(hardham.path, p), training.df = spam.df))
     
 hardham.hamtest <- sapply(hardham.docs,
-                          function(p) classify.email(paste(hardham.path, p, sep = ""),
-                          training.df = easyham.df))
+                          function(p) classify.email(file.path(hardham.path, p), training.df = easyham.df))
     
 hardham.res <- ifelse(hardham.spamtest > hardham.hamtest,
                       TRUE,
@@ -207,15 +205,15 @@ summary(hardham.res)
 
 # Find counts of just terms 'html' and 'table' in all SPAM and EASYHAM docs, and create figure
 html.spam <- sapply(spam.docs,
-                    function(p) count.word(paste(spam.path, p, sep = ""), "html"))
+                    function(p) count.word(file.path(spam.path, p), "html"))
 table.spam <- sapply(spam.docs,
-                     function(p) count.word(paste(spam.path, p, sep = ""), "table"))
+                     function(p) count.word(file.path(spam.path, p), "table"))
 spam.init <- cbind(html.spam, table.spam, "SPAM")
 
 html.easyham <- sapply(easyham.docs,
-                       function(p) count.word(paste(easyham.path, p, sep = ""), "html"))
+                       function(p) count.word(file.path(easyham.path, p), "html"))
 table.easyham <- sapply(easyham.docs,
-                        function(p) count.word(paste(easyham.path, p, sep = ""), "table"))
+                        function(p) count.word(file.path(easyham.path, p), "table"))
 easyham.init <- cbind(html.easyham, table.easyham, "EASYHAM")
 
 init.df <- data.frame(rbind(spam.init, easyham.init),
@@ -233,7 +231,7 @@ init.plot1 <- ggplot(init.df, aes(x = html, y = table)) +
   stat_abline(yintersept = 0, slope = 1) +
   theme_bw()
 ggsave(plot = init.plot1,
-       filename = "images/01_init_plot1.pdf",
+       filename = file.path("images", "01_init_plot1.pdf"),
        width = 10,
        height = 10)
     
@@ -245,7 +243,7 @@ init.plot2 <- ggplot(init.df, aes(x = html, y = table)) +
   stat_abline(yintersept = 0, slope = 1) +
   theme_bw()
 ggsave(plot = init.plot2,
-       filename = "images/02_init_plot2.pdf",
+       filename = file.path("images", "02_init_plot2.pdf"),
        width = 10,
        height = 10)
 
@@ -272,17 +270,17 @@ spam2.docs <- spam2.docs[which(spam2.docs != "cmds")]
 easyham2.class <- suppressWarnings(lapply(easyham2.docs,
                                    function(p)
                                    {
-                                     spam.classifier(paste(easyham2.path, p, sep = ""))
+                                     spam.classifier(file.path(easyham2.path, p))
                                    }))
 hardham2.class <- suppressWarnings(lapply(hardham2.docs,
                                    function(p)
                                    {
-                                     spam.classifier(paste(hardham2.path, p, sep = ""))
+                                     spam.classifier(file.path(hardham2.path, p))
                                    }))
 spam2.class <- suppressWarnings(lapply(spam2.docs,
                                 function(p)
                                 {
-                                  spam.classifier(paste(spam2.path,p,sep = ""))
+                                  spam.classifier(file.path(spam2.path, p))
                                 }))
 
 # Create a single, final, data frame with all of the classification data in it
@@ -319,7 +317,7 @@ class.plot <- ggplot(class.df, aes(x = Pr.HAM, Pr.SPAM)) +
     theme_bw() +
     opts(axis.text.x = theme_blank(), axis.text.y = theme_blank())
 ggsave(plot = class.plot,
-       filename = "images/03_final_classification.pdf",
+       filename = file.path("images", "03_final_classification.pdf"),
        height = 10,
        width = 10)
 
@@ -340,5 +338,5 @@ colnames(class.res) <- c("NOT SPAM", "SPAM")
 print(class.res)
 
 # Save the training data for use in Chapter 4
-write.csv(spam.df, "data/spam_df.csv", row.names = FALSE)
-write.csv(easyham.df, "data/easyham_df.csv", row.names = FALSE)
+write.csv(spam.df, file.path("data", "spam_df.csv"), row.names = FALSE)
+write.csv(easyham.df, file.path("data", "easyham_df.csv"), row.names = FALSE)
