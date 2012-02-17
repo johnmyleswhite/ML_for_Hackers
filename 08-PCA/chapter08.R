@@ -20,9 +20,9 @@
 library('ggplot2')
 
 # First code snippet
-prices <- read.csv('data/stock_prices.csv')
+prices <- read.csv(file.path('data', 'stock_prices.csv'))
 
-prices[1,]
+prices[1, ]
 # Date Stock Close
 #1 2011-05-25 DTE 51.12
 
@@ -69,7 +69,7 @@ pca <- princomp(date.stock.matrix[,2:ncol(date.stock.matrix)])
 #24 variables and 2366 observations.
 
 # Eighth code snippet
-principal.component <- pca$loadings[,1]
+principal.component <- pca$loadings[, 1]
 
 # Ninth code snippet
 loadings <- as.numeric(principal.component)
@@ -80,10 +80,10 @@ ggplot(data.frame(Loading = loadings),
   opts(legend.position = 'none')
 
 # Tenth code snippet
-market.index <- predict(pca)[,1]
+market.index <- predict(pca)[, 1]
 
 # Eleventh code snippet
-dji.prices <- read.csv('data/DJI.csv')
+dji.prices <- read.csv(file.path('data', 'DJI.csv'))
 dji.prices <- transform(dji.prices, Date = ymd(Date))
 
 # Twelfth code snippet
@@ -95,7 +95,9 @@ dji <- with(dji.prices, rev(Close))
 dates <- with(dji.prices, rev(Date))
 
 # Fourteenth code snippet
-comparison <- data.frame(Date = dates, MarketIndex = market.index, DJI = dji)
+comparison <- data.frame(Date = dates,
+                         MarketIndex = market.index,
+                         DJI = dji)
 
 ggplot(comparison, aes(x = MarketIndex, y = DJI)) +
   geom_point() +
@@ -114,7 +116,8 @@ alt.comparison <- melt(comparison, id.vars = 'Date')
 
 names(alt.comparison) <- c('Date', 'Index', 'Price')
 
-ggplot(alt.comparison, aes(x = Date, y = Price, group = Index, color = Index)) +
+ggplot(alt.comparison,
+       aes(x = Date, y = Price, group = Index, color = Index)) +
   geom_point() +
   geom_line()
 
