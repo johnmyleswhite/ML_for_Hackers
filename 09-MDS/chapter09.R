@@ -18,8 +18,8 @@
 # All rights reserved.
 
 # Load libraries
-library(foreign)
-library(ggplot2)
+library('foreign')
+library('ggplot2')
 
 ### Simulated analysis to review the technique
 
@@ -27,9 +27,11 @@ library(ggplot2)
 
 # First code snippet.
 set.seed(851982) # To make sure results are consistent
-ex.matrix <- matrix(sample(c(-1,0,1), 24, replace=TRUE), nrow=4, ncol=6)
-row.names(ex.matrix) <- c('A','B','C','D')
-colnames(ex.matrix) <- c('P1','P2','P3','P4','P5','P6')
+ex.matrix <- matrix(sample(c(-1, 0, 1), 24, replace = TRUE),
+                    nrow = 4,
+                    ncol = 6)
+row.names(ex.matrix) <- c('A', 'B', 'C', 'D')
+colnames(ex.matrix) <- c('P1', 'P2', 'P3', 'P4', 'P5', 'P6')
 
 # Second code snippet
 ex.matrix
@@ -65,7 +67,7 @@ ex.mult
 #D 1 -1 -1 3
 
 # Fifth code snippet
-sqrt(sum((ex.mult[1,]-ex.mult[4,])^2))
+sqrt(sum((ex.mult[1, ] - ex.mult[4, ]) ^ 2))
 #[1] 2.236068
 
 ex.dist <- dist(ex.mult)
@@ -79,14 +81,14 @@ ex.dist
 # Sixth code snippet
 # Visualize clusters
 ex.mds <- cmdscale(ex.dist)
-plot(ex.mds, type='n')
-text(ex.mds, c('A','B','C','D'))
+plot(ex.mds, type = 'n')
+text(ex.mds, c('A', 'B', 'C', 'D'))
 
 # Seventh code snippet
-library(foreign)
-library(ggplot2)
+library('foreign')
+library('ggplot2')
 
-data.dir <- "data/roll_call/"
+data.dir <- file.path("data", "roll_call")
 data.files <- list.files(data.dir)
 
 data.files
@@ -101,7 +103,10 @@ data.files
 # Eighth code snippet
 # Add all roll call vote data frames to a single list
 rollcall.data <- lapply(data.files,
-  function(f) read.dta(paste(data.dir, f, sep=""), convert.factors=FALSE))
+                        function(f)
+                        {
+                          read.dta(file.path(data.dir, f), convert.factors = FALSE)
+                        })
 
 # Ninth code snippet
 dim(rollcall.data[[1]])
@@ -142,7 +147,7 @@ rollcall.dist <- lapply(rollcall.simple, function(m) dist(m %*% t(m)))
 
 # Do the multidimensional scaling
 rollcall.mds <- lapply(rollcall.dist,
-  function(d) as.data.frame((cmdscale(d, k=2)) * -1))
+                       function(d) as.data.frame((cmdscale(d, k = 2)) * -1))
 
 # Twelfth code snippet
 # Add identification information about Senators back into MDS data frames
@@ -157,9 +162,10 @@ for(i in 1:length(rollcall.mds))
   congress.names <- sapply(as.character(congress$name),
                            function(n) strsplit(n, "[, ]")[[1]][1])
   
-  rollcall.mds[[i]] <- transform(rollcall.mds[[i]], name=congress.names,
-                                 party=as.factor(congress$party),
-                                 congress=congresses[i])
+  rollcall.mds[[i]] <- transform(rollcall.mds[[i]],
+                                 name = congress.names,
+                                 party = as.factor(congress$party),
+                                 congress = congresses[i])
 }
 
 head(rollcall.mds[[1]])
@@ -176,67 +182,124 @@ head(rollcall.mds[[1]])
 # Create a plot of just the 110th Congress
 cong.110 <- rollcall.mds[[9]]
 
-base.110 <- ggplot(cong.110, aes(x=x, y=y))+scale_size(to=c(2,2), legend=FALSE)+
-  scale_alpha(legend=FALSE)+theme_bw()+
-  opts(axis.ticks=theme_blank(), axis.text.x=theme_blank(), axis.text.y=theme_blank(),
-  title="Roll Call Vote MDS Clustering for 110th U.S. Senate",
-  panel.grid.major=theme_blank())+
-  xlab("")+ylab("")+scale_shape(name="Party", breaks=c("100","200","328"),
-  labels=c("Dem.", "Rep.", "Ind."), solid=FALSE)+
-  scale_color_manual(name="Party", values=c("100"="black","200"="dimgray",
-  "328"="grey"),
-  breaks=c("100","200","328"), labels=c("Dem.", "Rep.", "Ind."))
+base.110 <- ggplot(cong.110, aes(x = x, y = y)) +
+  scale_size(to = c(2,2), legend = FALSE) +
+  scale_alpha(legend = FALSE) + theme_bw() +
+  opts(axis.ticks = theme_blank(),
+       axis.text.x = theme_blank(),
+       axis.text.y = theme_blank(),
+       title = "Roll Call Vote MDS Clustering for 110th U.S. Senate",
+       panel.grid.major = theme_blank()) +
+  xlab("") +
+  ylab("") +
+  scale_shape(name = "Party", breaks = c("100", "200", "328"),
+              labels = c("Dem.", "Rep.", "Ind."), solid = FALSE) +
+  scale_color_manual(name = "Party", values = c("100" = "black",
+                                                "200" = "dimgray",
+                                                "328"="grey"),
+                     breaks = c("100", "200", "328"),
+                     labels = c("Dem.", "Rep.", "Ind."))
 
-print(base.110+geom_point(aes(shape=party, alpha=0.75, size=2)))
-print(base.110+geom_text(aes(color=party, alpha=0.75, label=cong.110$name, size=2)))
+print(base.110 + geom_point(aes(shape = party,
+                                alpha = 0.75,
+                                size = 2)))
+print(base.110 + geom_text(aes(color = party,
+                               alpha = 0.75,
+                               label = cong.110$name,
+                               size = 2)))
 
 # Fourteenth code snippet
 # Create a single visualization of MDS for all Congresses on a grid
 all.mds <- do.call(rbind, rollcall.mds)
-all.plot <- ggplot(all.mds, aes(x=x, y=y))+
-geom_point(aes(shape=party, alpha=0.75, size=2))+
-scale_size(to=c(2,2), legend=FALSE)+
-scale_alpha(legend=FALSE)+theme_bw()+
-opts(axis.ticks=theme_blank(), axis.text.x=theme_blank(),
-axis.text.y=theme_blank(),
-title="Roll Call Vote MDS Clustering for U.S. Senate
-(101st - 111th Congress)",
-panel.grid.major=theme_blank())+
-xlab("")+ylab("")+
-scale_shape(name="Party", breaks=c("100","200","328"),
-labels=c("Dem.", "Rep.", "Ind."),
-solid=FALSE)+facet_wrap(~ congress)
+all.plot <- ggplot(all.mds, aes(x = x, y = y)) +
+  geom_point(aes(shape = party, alpha = 0.75, size = 2)) +
+  scale_size(to = c(2, 2), legend = FALSE) +
+  scale_alpha(legend = FALSE) +
+  theme_bw() +
+  opts(axis.ticks = theme_blank(),
+       axis.text.x = theme_blank(),
+       axis.text.y = theme_blank(),
+       title = "Roll Call Vote MDS Clustering for U.S. Senate (101st - 111th Congress)",
+       panel.grid.major = theme_blank()) +
+       xlab("") +
+       ylab("") +
+       scale_shape(name = "Party",
+                   breaks = c("100", "200", "328"),
+                   labels = c("Dem.", "Rep.", "Ind."),
+                   solid = FALSE) +
+      facet_wrap(~ congress)
+
+print(all.plot)
 
 # This is the code omitted from the chapter.  This is used to create shnazy plots of everything!
-for(i in 1:length(rollcall.mds)) {
-    mds <- rollcall.mds[[i]]
-    congress <- congresses[i]
-    plot.title <- paste("Roll Call Vote MDS Clustering for ", congress, " U.S. Senate", sep="")
-
-    # Build bas plot
-    mds.plot <- ggplot(mds, aes(x = x, y = y)) + scale_size(to = c(2, 2), legend = FALSE) + 
-        scale_alpha(legend = FALSE) + theme_bw() + opts(axis.ticks = theme_blank(), 
-            axis.text.x = theme_blank(), axis.text.y = theme_blank(), title = plot.title, 
-            panel.grid.major = theme_blank()) +
-        xlab("") + ylab("")
-
-    # Build up point and text plots separately
-    mds.point <- mds.plot + geom_point(aes(shape = party, alpha = 0.75, size = 2))
-    mds.text <- mds.plot + geom_text(aes(color = party, alpha = 0.75, label = mds$name, size = 2))
-
-    # Fix labels, shapes and colors
-    if(length(levels(mds$party)) > 2) {
-        mds.point <- mds.point+scale_shape(name="Party", breaks=c("100","200","328"), 
-            labels=c("Dem.", "Rep.", "Ind."), solid=FALSE)
-        mds.text <- mds.text+scale_color_manual(name="Party", values=c("100"="black","200"="dimgray","328"="gray"),
-            breaks=c("100","200","328"), labels=c("Dem.", "Rep.", "Ind."))
-    }
-    else {
-        mds.point <- mds.point + scale_shape(name = "Party", breaks = c("100", "200"), 
-            labels = c("Dem.", "Rep."), solid = FALSE)
-        mds.text <- mds.text + scale_color_manual(name = "Party", values = c("100" = "black", "200" = "dimgray"),
-            breaks = c("100", "200"), labels = c("Dem.", "Rep."))
-    }
-    ggsave(plot=mds.point, filename=paste("images/senate_plots/", congress, "_point.pdf", sep=""), width=8, height=5)
-    ggsave(plot=mds.text, filename=paste("images/senate_plots/", congress, "_names.pdf", sep=""), width=8, height=5)
+for(i in 1:length(rollcall.mds))
+{
+  mds <- rollcall.mds[[i]]
+  congress <- congresses[i]
+  plot.title <- paste("Roll Call Vote MDS Clustering for ",
+                      congress,
+                      " U.S. Senate",
+                      sep = "")
+  
+  # Build base plot
+  mds.plot <- ggplot(mds, aes(x = x, y = y)) +
+    scale_size(to = c(2, 2), legend = FALSE) +
+    scale_alpha(legend = FALSE) +
+    theme_bw() +
+    opts(axis.ticks = theme_blank(), 
+         axis.text.x = theme_blank(),
+         axis.text.y = theme_blank(),
+         title = plot.title,
+         panel.grid.major = theme_blank()) +
+    xlab("") +
+    ylab("")
+  
+  # Build up point and text plots separately
+  mds.point <- mds.plot + geom_point(aes(shape = party,
+                                         alpha = 0.75,
+                                         size = 2))
+  mds.text <- mds.plot + geom_text(aes(color = party,
+                                       alpha = 0.75,
+                                       label = mds$name,
+                                       size = 2))
+  
+  # Fix labels, shapes and colors
+  if(length(levels(mds$party)) > 2)
+  {
+    mds.point <- mds.point + scale_shape(name = "Party",
+                                         breaks = c("100", "200", "328"),
+                                         labels = c("Dem.", "Rep.", "Ind."),
+                                         solid = FALSE)
+    mds.text <- mds.text + scale_color_manual(name = "Party",
+                                              values = c("100" = "black",
+                                                         "200" = "dimgray",
+                                                         "328" = "gray"),
+                                              breaks = c("100", "200", "328"),
+                                              labels = c("Dem.", "Rep.", "Ind."))
+  }
+  else
+  {
+    mds.point <- mds.point + scale_shape(name = "Party",
+                                         breaks = c("100", "200"),
+                                         labels = c("Dem.", "Rep."),
+                                         solid = FALSE)
+    mds.text <- mds.text + scale_color_manual(name = "Party",
+                                              values = c("100" = "black",
+                                                         "200" = "dimgray"),
+                                              breaks = c("100", "200"),
+                                              labels = c("Dem.", "Rep."))
+  }
+  
+  ggsave(plot = mds.point,
+         filename = file.path('images',
+                              'senate_plots',
+                              paste(congress, "_point.pdf", sep = "")),
+         width = 8,
+         height = 5)
+  ggsave(plot = mds.text,
+         filename = file.path('images',
+                              'senate_plots',
+                              paste(congress, "_names.pdf", sep = "")),
+         width = 8,
+         height = 5)
 }
