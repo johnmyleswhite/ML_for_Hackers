@@ -245,46 +245,54 @@ data.file <- file.path('data', '01_heights_weights_genders.csv')
 heights.weights <- read.csv(data.file, header = TRUE, sep = ',')
 
 # Experiment with histograms.
-ggplot(heights.weights, aes(x = Height)) + geom_histogram(binwidth = 1)
+ggplot(heights.weights, aes(x = Height)) +
+  geom_histogram(binwidth = 1)
 
 #
 # Snippet 21
 #
 
-ggplot(heights.weights, aes(x = Height)) + geom_histogram(binwidth = 5)
+ggplot(heights.weights, aes(x = Height)) +
+  geom_histogram(binwidth = 5)
 
 #
 # Snippet 22
 #
 
-ggplot(heights.weights, aes(x = Height)) + geom_histogram(binwidth = 0.001)
+ggplot(heights.weights, aes(x = Height)) +
+  geom_histogram(binwidth = 0.001)
 
 #
 # Snippet 23
 #
 
 # Experiment with kernel density estimates.
-ggplot(heights.weights, aes(x = Height)) + geom_density()
+ggplot(heights.weights, aes(x = Height)) +
+  geom_density()
 
 #
 # Snippet 24
 #
 
 # Separate out heights and weights based on gender.
-ggplot(heights.weights, aes(x = Height, fill = Gender)) + geom_density()
+ggplot(heights.weights, aes(x = Height, fill = Gender)) +
+  geom_density()
 
 #
 # Snippet 25
 #
 
-ggplot(heights.weights, aes(x = Weight, fill = Gender)) + geom_density()
+ggplot(heights.weights, aes(x = Weight, fill = Gender)) +
+  geom_density()
 
 #
 # Snippet 26
 #
 
 # Produce two facets in a single plot to make it easier to see the hidden structure.
-ggplot(heights.weights, aes(x = Weight, fill = Gender)) + geom_density() + facet_grid(Gender ~ .)
+ggplot(heights.weights, aes(x = Weight, fill = Gender)) +
+  geom_density() +
+  facet_grid(Gender ~ .)
 
 #
 # Snippet 27
@@ -293,7 +301,8 @@ ggplot(heights.weights, aes(x = Weight, fill = Gender)) + geom_density() + facet
 # Experiment with random numbers from the normal distribution.
 m <- 0
 s <- 1
-ggplot(data.frame(X = rnorm(100000, m, s)), aes(x = X)) + geom_density()
+ggplot(data.frame(X = rnorm(100000, m, s)), aes(x = X)) +
+  geom_density()
 
 #
 # Snippet 28
@@ -310,8 +319,10 @@ range(cauchy.values)
 # Snippet 29
 #
 
-ggplot(data.frame(X = normal.values), aes(x = X)) + geom_density()
-ggplot(data.frame(X = cauchy.values), aes(x = X)) + geom_density()
+ggplot(data.frame(X = normal.values), aes(x = X)) +
+  geom_density()
+ggplot(data.frame(X = cauchy.values), aes(x = X)) +
+  geom_density()
 
 #
 # Snippet 30
@@ -319,30 +330,40 @@ ggplot(data.frame(X = cauchy.values), aes(x = X)) + geom_density()
 
 # Experiment with random numbers from the gamma distribution.
 gamma.values <- rgamma(100000, 1, 0.001)
-ggplot(data.frame(X = gamma.values), aes(x = X)) + geom_density()
+ggplot(data.frame(X = gamma.values), aes(x = X)) +
+  geom_density()
 
 #
 # Snippet 31
 #
 
 # Generate scatterplots of the heights and weights to see their relationship.
-ggplot(heights.weights, aes(x = Height, y = Weight)) + geom_point()
+ggplot(heights.weights, aes(x = Height, y = Weight)) +
+  geom_point()
 
 #
 # Snippet 32
 #
 
 # Add a smooth shape that relates the two explicitly.
-ggplot(heights.weights, aes(x = Height, y = Weight)) + geom_point() + geom_smooth()
+ggplot(heights.weights, aes(x = Height, y = Weight)) +
+  geom_point() +
+  geom_smooth()
 
 #
 # Snippet 33
 #
 
 # See how the smooth shape gets better with more data.
-ggplot(heights.weights[1:20,], aes(x = Height, y = Weight)) + geom_point() + geom_smooth()
-ggplot(heights.weights[1:200,], aes(x = Height, y = Weight)) + geom_point() + geom_smooth()
-ggplot(heights.weights[1:2000,], aes(x = Height, y = Weight)) + geom_point() + geom_smooth()
+ggplot(heights.weights[1:20, ], aes(x = Height, y = Weight)) +
+  geom_point() +
+  geom_smooth()
+ggplot(heights.weights[1:200, ], aes(x = Height, y = Weight)) +
+  geom_point() +
+  geom_smooth()
+ggplot(heights.weights[1:2000, ], aes(x = Height, y = Weight)) +
+  geom_point() +
+  geom_smooth()
 
 #
 # Snippet 34
@@ -363,7 +384,8 @@ ggplot(heights.weights, aes(x = Height, y = Weight, color = Gender)) +
 # Snippet 35
 #
 
-heights.weights <- transform(heights.weights, Male = ifelse(Gender == 'Male', 1, 0))
+heights.weights <- transform(heights.weights,
+                             Male = ifelse(Gender == 'Male', 1, 0))
 
 logit.model <- glm(Male ~ Weight + Height,
                    data = heights.weights,
