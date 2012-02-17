@@ -24,7 +24,7 @@ height.to.weight <- function(height, a, b)
 }
 
 # Second code snippet
-heights.weights <- read.csv('data/01_heights_weights_genders.csv')
+heights.weights <- read.csv(file.path('data', '01_heights_weights_genders.csv'))
 
 coef(lm(Weight ~ Height, data = heights.weights))
 #(Intercept) Height
@@ -235,7 +235,7 @@ propose.modified.cipher <- function(cipher)
 }
 
 # Seventeenth code snippet
-load('data/lexical_database.Rdata')
+load(file.path('data', 'lexical_database.Rdata'))
 
 # Eighteength code snippet
 lexical.database[['a']]
@@ -319,9 +319,12 @@ number.of.iterations <- 50000
 
 for (iteration in 1:number.of.iterations)
 {
-  log.probability <- log.probability.of.text(encrypted.text, cipher, lexical.database)
+  log.probability <- log.probability.of.text(encrypted.text,
+                                             cipher,
+                                             lexical.database)
   
-  current.decrypted.text <- paste(apply.cipher.to.text(encrypted.text, cipher),
+  current.decrypted.text <- paste(apply.cipher.to.text(encrypted.text,
+                                                       cipher),
                                   collapse = ' ')
   
   correct.text <- as.numeric(current.decrypted.text == paste(decrypted.text,
@@ -336,4 +339,7 @@ for (iteration in 1:number.of.iterations)
   cipher <- metropolis.step(encrypted.text, cipher, lexical.database)
 }
 
-write.table(results, file = 'data/results.csv', row.names = FALSE, sep = '\t')
+write.table(results,
+            file = file.path('data/results.tsv'),
+            row.names = FALSE,
+            sep = '\t')
