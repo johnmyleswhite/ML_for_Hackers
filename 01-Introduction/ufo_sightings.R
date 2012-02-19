@@ -137,7 +137,7 @@ ufo.us <- subset(ufo.us, DateOccurred >= as.Date("1990-01-01"))
 new.hist <- ggplot(ufo.us, aes(x = DateOccurred)) +
   geom_histogram() +
   scale_x_date(major = "50 years")
-ggsave(plot = quick.hist,
+ggsave(plot = new.hist,
        filename = file.path("images", "new_hist.pdf"),
        height = 6,
        width = 8)
