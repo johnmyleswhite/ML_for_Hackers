@@ -16,7 +16,16 @@
 # Create a vector containing all of the packages that will be used in the case studies
 # (in no particular order)
 
-cran.packages <- c("arm","ggplot2","glmnet","igraph","lme4","lubridate","plyr","RCurl","RJSONIO","tm","XML")
+cran.packages <- c("ggplot2",
+                   "glmnet",
+                   "igraph",
+                   "lme4",
+                   "lubridate",
+                   "plyr",
+                   "RCurl",
+                   "RJSONIO",
+                   "tm",
+                   "XML")
 
 cat("This script will now attempt to install all of the R packages used in 'Machine Learning for Hackers'")
 
