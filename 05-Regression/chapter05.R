@@ -157,10 +157,12 @@ rmse
 #[1] 7.266361
 
 # Sixteenth snippet
-mean.rmse <- 1.09209343
-model.rmse <- 0.954544
+# There was an error in the book for this example.
+# R-squared is a ratio of MSE's, not RMSE's.
+mean.mse <- 1.09209343
+model.mse <- 0.954544
 
-r2 <- 1 - (model.rmse / mean.rmse)
+r2 <- 1 - (model.mse / mean.mse)
 r2
 #[1] 0.1259502
 
