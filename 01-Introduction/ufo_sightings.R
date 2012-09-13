@@ -24,8 +24,8 @@
 
 # Load libraries and data
 library('ggplot2')    # We'll use ggplot2 for all of our visualizations
-library(scales)
-library(plyr)
+library('scales')
+library('plyr')
 
 # This is a tab-delimited file, so we use 'read.delim' and set the separator as a tab character.
 # We also have to alter two defaults; first, we want the strings to not be converted to
