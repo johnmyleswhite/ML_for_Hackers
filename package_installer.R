@@ -18,6 +18,7 @@
 
 cran.packages <- c("ggplot2",
                    "glmnet",
+                   "Hmisc",
                    "igraph",
                    "lme4",
                    "lubridate",

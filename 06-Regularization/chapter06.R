@@ -331,6 +331,7 @@ rmse <- function(y, h)
 }
 
 # Twenty-second code snippet
+
 library('glmnet')
 
 glmnet.fit <- with(training.df, glmnet(poly(X, degree = 10), Y))
