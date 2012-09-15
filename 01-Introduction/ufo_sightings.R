@@ -8,7 +8,7 @@
 #                   reported UFO sightings to investigate what, if any, seasonal trends
 #                   exists in the data.
 # Data Used:       http://www.infochimps.com/datasets/60000-documented-ufo-sightings-with-text-descriptions-and-metada
-# Packages Used:   ggplot2
+# Packages Used:   ggplot2, plyr, scales
 
 # All source code is copyright (c) 2012, under the Simplified BSD License.  
 # For more information on FreeBSD see: http://www.opensource.org/licenses/bsd-license.php
@@ -23,7 +23,9 @@
 # Otherwise you will see errors when loading data or saving figures!
 
 # Load libraries and data
-library('ggplot2')    # We'll use ggplot2 for all of our visualizations
+library(ggplot2)    # We'll use ggplot2 for all of our visualizations
+library(plyr)       # For data manipulation
+library(scales)
 
 # This is a tab-delimited file, so we use 'read.delim' and set the separator as a tab character.
 # We also have to alter two defaults; first, we want the strings to not be converted to
@@ -58,7 +60,7 @@ good.rows <- ifelse(nchar(ufo$DateOccurred) != 8 |
                     nchar(ufo$DateReported) != 8,
                     FALSE,
                     TRUE)
-length(which(!good.rows))      # While 375 rows may seem like a lot, out of over 60K
+length(which(!good.rows))      # While 731 rows may seem like a lot, out of over 60K
 ufo <- ufo[good.rows, ]        # it is only about 0.6% of the total number of records.
 
 # Now we can convert the strings to Date objects and work with them properly
@@ -95,20 +97,13 @@ location.matrix <- do.call(rbind, city.state)
 # function.
 ufo <- transform(ufo,
                  USCity = location.matrix[, 1],
-                 USState = tolower(location.matrix[, 2]),
+                 USState = location.matrix[, 2],
                  stringsAsFactors = FALSE)
 
 # Next step, we will strip out non-US incients
-us.states <- c("ak", "al", "ar", "az", "ca", "co", "ct",
-               "de", "fl", "ga", "hi", "ia", "id", "il",
-               "in", "ks", "ky", "la", "ma", "md", "me",
-               "mi", "mn", "mo", "ms", "mt", "nc", "nd",
-               "ne", "nh", "nj", "nm", "nv", "ny", "oh",
-               "ok", "or", "pa", "ri", "sc", "sd", "tn",
-               "tx", "ut", "va", "vt", "wa", "wi", "wv",
-               "wy")
-ufo$USState <- us.states[match(ufo$USState, us.states)]
-ufo$USCity[is.na(ufo$USState)] <- NA
+
+# Insert NA's where there are non-US cities
+ufo$USState <- state.abb[match(ufo$USState, state.abb)]
 
 # Finally, we'll use 'subset' to examine only events in the United States and convert 
 # states to factors, i.e., a categorical variable.
@@ -123,7 +118,7 @@ head(ufo.us)
 # We can do this by creating a histogram of frequencies for UFO sightings over time
 quick.hist <- ggplot(ufo.us, aes(x = DateOccurred)) +
   geom_histogram() + 
-  scale_x_date(major = "50 years")
+  scale_x_date(breaks = "50 years")
 ggsave(plot = quick.hist,
        filename = file.path("images", "quick_hist.pdf"),
        height = 6,
@@ -135,8 +130,11 @@ ufo.us <- subset(ufo.us, DateOccurred >= as.Date("1990-01-01"))
 
 # Let's look at the histogram now
 new.hist <- ggplot(ufo.us, aes(x = DateOccurred)) +
-  geom_histogram() +
-  scale_x_date(major = "50 years")
+  geom_histogram(aes(fill='white', color='red')) +
+  scale_fill_manual(values=c('white'='white'), guide="none") +
+  scale_color_manual(values=c('red'='red'), guide="none") +
+  scale_x_date(breaks = "50 years")
+
 ggsave(plot = new.hist,
        filename = file.path("images", "new_hist.pdf"),
        height = 6,
@@ -161,7 +159,7 @@ date.strings <- strftime(date.range, "%Y-%m")
 
 # To fill in the missing dates from the 'sightings.counts' data frame we will need to create a separate data
 # frame with a column of states and Year-Months.
-states.dates <- lapply(us.states, function(s) cbind(s, date.strings))
+states.dates <- lapply(state.abb, function(s) cbind(s, date.strings))
 states.dates <- data.frame(do.call(rbind, states.dates),
                            stringsAsFactors = FALSE)
 
@@ -177,12 +175,15 @@ all.sightings <- merge(states.dates,
 # Now we just need to clean up the merged data frame a bit
 # Set the column names to something meaningful
 names(all.sightings) <- c("State", "YearMonth", "Sightings")
+
 # Covert the NAs to 0's, what we really wanted
 all.sightings$Sightings[is.na(all.sightings$Sightings)] <- 0
+
 # Reset the character Year-Month to a Date objects
-all.sightings$YearMonth <- as.Date(rep(date.range, length(us.states)))
+all.sightings$YearMonth <- as.Date(rep(date.range, length(state.abb)))
+
 # Capitalize the State abbreviation and set as factor
-all.sightings$State <- as.factor(toupper(all.sightings$State))
+all.sightings$State <- as.factor(all.sightings$State)
 
 # There are lots of ways we could test the seasonality of of these sightings, but one basic method is to 
 # inspect the trends visually.  We now construct a plot that will show these trends for all 50 U.S. states
@@ -201,13 +202,19 @@ state.plot <- ggplot(all.sightings, aes(x = YearMonth,y = Sightings)) +
   geom_line(aes(color = "darkblue")) +
   facet_wrap(~State, nrow = 10, ncol = 5) + 
   theme_bw() + 
-  scale_color_manual(values = c("darkblue" = "darkblue"), legend = FALSE) +
-  scale_x_date(major = "5 years", format = "%Y") +
-  xlab("Time") +
+  scale_color_manual(values = c("darkblue" = "darkblue"), guide = "none") +
+  scale_x_date(breaks = "5 years", labels = date_format('%Y')) +
+  xlab("Years") +
   ylab("Number of Sightings") +
-  opts(title = "Number of UFO sightings by Month-Year and U.S. State (1990-2010)")
+  ggtitle("Number of UFO sightings by Month-Year and U.S. State (1990-2010)")
+
 # Save the plot as a PDF
 ggsave(plot = state.plot,
        filename = file.path("images", "ufo_sightings.pdf"),
        width = 14,
        height = 8.5)
+
+
+# Create a new graph where the number of signtings is normailzed by the state population
+state.pop <- read.csv(file.path('data/census.csv'), stringsAsFactors=FALSE)
+state.pop$abbs <- sapply(state.pop$State, function(x) state.abb[grep(paste('^', x, sep=''), state.name)])
