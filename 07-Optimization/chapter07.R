@@ -76,7 +76,7 @@ a.error <- function(a)
 }
 
 # Seventh code snippet
-curve(sapply(x, function (a) {a.error(a)}), from = -1000, to = 1000)
+curve(sapply(x, function (a) {a.error(a)}), from = -1000, to = 1000, ylab = "Squared Error")
 
 # Eighth code snippet
 b.error <- function(b)
@@ -84,7 +84,7 @@ b.error <- function(b)
   return(squared.error(heights.weights, 0, b))
 }
 
-curve(sapply(x, function (b) {b.error(b)}), from = -1000, to = 1000)
+curve(sapply(x, function (b) {b.error(b)}), from = -1000, to = 1000, ylab = "Squared Error")
 
 # Ninth code snippet
 ridge.error <- function(heights.weights, a, b, lambda)
@@ -124,13 +124,13 @@ a.ridge.error <- function(a, lambda)
 {
   return(ridge.error(heights.weights, a, 0, lambda))
 }
-curve(sapply(x, function (a) {a.ridge.error(a, lambda)}), from = -1000, to = 1000)
+curve(sapply(x, function (a) {a.ridge.error(a, lambda)}), from = -1000, to = 1000, ylab = "Ridge Error")
 
 b.ridge.error <- function(b, lambda)
 {
   return(ridge.error(heights.weights, 0, b, lambda))
 }
-curve(sapply(x, function (b) {b.ridge.error(b, lambda)}), from = -1000, to = 1000)
+curve(sapply(x, function (b) {b.ridge.error(b, lambda)}), from = -1000, to = 1000, ylab = "Ridge Error")
 
 # Twelfth code snippet
 absolute.error <- function(heights.weights, a, b)
@@ -146,7 +146,7 @@ a.absolute.error <- function(a)
   return(absolute.error(heights.weights, a, 0))
 }
 
-curve(sapply(x, function (a) {a.absolute.error(a)}), from = -1000, to = 1000)
+curve(sapply(x, function (a) {a.absolute.error(a)}), from = -1000, to = 1000, ylab = "Absolute Error")
 
 # Fourteenth code snippet
 english.letters <- c('a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k',
