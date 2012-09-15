@@ -65,10 +65,10 @@ user.net  <- set.vertex.attribute(user.net, "Label", value = get.vertex.attribut
 
 # Next, extract the 2-core, and remove pendants generated as a result
 user.cores <- graph.coreness(user.net, mode = "in")
-user.clean <- subgraph(user.net, which(user.cores > 1) - 1)
+user.clean <- induced.subgraph(user.net, which(user.cores > 1) - 1)
 
 # Finally, extract ego.net
-user.ego <- subgraph(user.net, c(0, neighbors(user.net, user, mode = "out")))
+user.ego <- induced.subgraph(user.net, c(0, neighbors(user.net, user, mode = "out")))
 
 # Add hierarchical clustering data to network
 user.sp <- shortest.paths(user.ego)

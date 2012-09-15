@@ -49,7 +49,7 @@ correlations <- as.numeric(cor.matrix)
 ggplot(data.frame(Correlation = correlations),
   aes(x = Correlation, fill = 1)) +
   geom_density() +
-  opts(legend.position = 'none')
+  theme(legend.position = 'none')
 
 # Sixth code snippet
 pca <- princomp(date.stock.matrix[,2:ncol(date.stock.matrix)])
@@ -77,7 +77,7 @@ loadings <- as.numeric(principal.component)
 ggplot(data.frame(Loading = loadings),
   aes(x = Loading, fill = 1)) +
   geom_density() +
-  opts(legend.position = 'none')
+  theme(legend.position = 'none')
 
 # Tenth code snippet
 market.index <- predict(pca)[, 1]
