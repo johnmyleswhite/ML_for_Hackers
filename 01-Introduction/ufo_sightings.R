@@ -218,3 +218,23 @@ ggsave(plot = state.plot,
 # Create a new graph where the number of signtings is normailzed by the state population
 state.pop <- read.csv(file.path('data/census.csv'), stringsAsFactors=FALSE)
 state.pop$abbs <- sapply(state.pop$State, function(x) state.abb[grep(paste('^', x, sep=''), state.name)])
+all.sightings$Sightings.Norm <- sapply(1:nrow(all.sightings), 
+    function(i) all.sightings$Sightings[i] / state.pop$X2000[which(state.pop$abbs== all.sightings$State[i])])
+    
+    
+state.plot.norm <- ggplot(all.sightings, aes(x = YearMonth,y = Sightings.Norm)) +
+  geom_line(aes(color = "darkblue")) +
+  facet_wrap(~State, nrow = 10, ncol = 5) + 
+  theme_bw() + 
+  scale_color_manual(values = c("darkblue" = "darkblue"), guide = "none") +
+  scale_x_date(breaks = "5 years", labels = date_format('%Y')) +
+  xlab("Years") +
+  ylab("Per Capita Number of Sightings (2000 Census)") +
+  ggtitle("Number of UFO sightings by Month-Year and U.S. State (1990-2010)")
+  
+  
+# Save the plot as a PDF
+ggsave(plot = state.plot.norm,
+     filename = file.path("images", "ufo_sightings_norm.pdf"),
+     width = 14,
+     height = 8.5)
