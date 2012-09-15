@@ -83,6 +83,7 @@ ex.dist
 ex.mds <- cmdscale(ex.dist)
 plot(ex.mds, type = 'n')
 text(ex.mds, c('A', 'B', 'C', 'D'))
+grid()
 
 # Seventh code snippet
 library('foreign')
@@ -183,15 +184,15 @@ head(rollcall.mds[[1]])
 cong.110 <- rollcall.mds[[9]]
 
 base.110 <- ggplot(cong.110, aes(x = x, y = y)) +
-  scale_size(to = c(2,2), legend = FALSE) +
-  scale_alpha(legend = FALSE) + theme_bw() +
-  opts(axis.ticks = theme_blank(),
-       axis.text.x = theme_blank(),
-       axis.text.y = theme_blank(),
-       title = "Roll Call Vote MDS Clustering for 110th U.S. Senate",
-       panel.grid.major = theme_blank()) +
+  scale_size(range = c(2,2), guide="none") +
+  scale_alpha(guide = "none") + theme_bw() +
+  theme(axis.ticks = element_blank(),
+       axis.text.x = element_blank(),
+       axis.text.y = element_blank(),
+       panel.grid.major = element_blank()) +
   xlab("") +
   ylab("") +
+  ggtitle("Roll Call Vote MDS Clustering for 110th U.S. Senate") + 
   scale_shape(name = "Party", breaks = c("100", "200", "328"),
               labels = c("Dem.", "Rep.", "Ind."), solid = FALSE) +
   scale_color_manual(name = "Party", values = c("100" = "black",
@@ -213,14 +214,14 @@ print(base.110 + geom_text(aes(color = party,
 all.mds <- do.call(rbind, rollcall.mds)
 all.plot <- ggplot(all.mds, aes(x = x, y = y)) +
   geom_point(aes(shape = party, alpha = 0.75, size = 2)) +
-  scale_size(to = c(2, 2), legend = FALSE) +
-  scale_alpha(legend = FALSE) +
+  scale_size(range = c(2, 2), guide="none") +
+  scale_alpha(guide="none") +
   theme_bw() +
-  opts(axis.ticks = theme_blank(),
-       axis.text.x = theme_blank(),
-       axis.text.y = theme_blank(),
-       title = "Roll Call Vote MDS Clustering for U.S. Senate (101st - 111th Congress)",
-       panel.grid.major = theme_blank()) +
+  theme(axis.ticks = element_blank(),
+       axis.text.x = element_blank(),
+       axis.text.y = element_blank(),
+       panel.grid.major = element_blank()) +
+       ggtitle("Roll Call Vote MDS Clustering for U.S. Senate (101st - 111th Congress)") +
        xlab("") +
        ylab("") +
        scale_shape(name = "Party",
@@ -243,14 +244,14 @@ for(i in 1:length(rollcall.mds))
   
   # Build base plot
   mds.plot <- ggplot(mds, aes(x = x, y = y)) +
-    scale_size(to = c(2, 2), legend = FALSE) +
-    scale_alpha(legend = FALSE) +
+    scale_size(range = c(2, 2), guide="none") +
+    scale_alpha(guide="none") +
     theme_bw() +
-    opts(axis.ticks = theme_blank(), 
-         axis.text.x = theme_blank(),
-         axis.text.y = theme_blank(),
-         title = plot.title,
-         panel.grid.major = theme_blank()) +
+    theme(axis.ticks = element_blank(), 
+         axis.text.x = element_blank(),
+         axis.text.y = element_blank(),
+         panel.grid.major = element_blank()) +
+         ggtitle(plot.title) + 
     xlab("") +
     ylab("")
   

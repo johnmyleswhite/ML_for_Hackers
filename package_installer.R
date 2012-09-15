@@ -24,6 +24,7 @@ cran.packages <- c("ggplot2",
                    "lubridate",
                    "plyr",
                    "RCurl",
+                   "reshape",
                    "RJSONIO",
                    "tm",
                    "XML")
