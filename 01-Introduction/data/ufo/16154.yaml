@@ -3,7 +3,7 @@ infochimps_schema:
   title: Infochimps Simple Schema (ICSS)
   version: 0.1.1
   generated_at: Wed Oct 20 14:34:20 +0000 2010
-  url: "http://www.infochimps.com/datasets/60000-documented-ufo-sightings-with-text-descriptions-and-metada.yaml"
+  url: "http://infochimps.com/datasets/d60000-documented-ufo-sightings-with-text-descriptions-and-metad.yaml"
   description: >-
     This is an Infochimps Simple Schema (ICSS).
 
@@ -24,7 +24,7 @@ dataset:
   title:               60,000+ Documented UFO Sightings With Text Descriptions And Metadata
   subtitle:            ~
   main_link:           ~
-  url:                 "http://www.infochimps.com/datasets/60000-documented-ufo-sightings-with-text-descriptions-and-metada"
+  url:                 "http://infochimps.com/datasets/d60000-documented-ufo-sightings-with-text-descriptions-and-metad"
   created_at:          "Wed Oct 20 04:49:06 UTC 2010"
   updated_at:          "Wed Oct 20 04:50:01 UTC 2010"  
   tags:              [ alien,aliens,awesome,database,ET,extra-terrestrial,flying,ship,sighting,space,tsv,ufo,unidentified-flying-objec ]
