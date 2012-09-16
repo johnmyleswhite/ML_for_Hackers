@@ -302,11 +302,9 @@ class.df$Class <- as.logical(as.numeric(class.df$Class))
 class.df$Type <- as.factor(class.df$Type)
 
 # Create final plot of results
-class.plot <- ggplot(class.df, aes(x = Pr.HAM, Pr.SPAM)) +
+class.plot <- ggplot(class.df, aes(x = log(Pr.HAM), log(Pr.SPAM))) +
     geom_point(aes(shape = Type, alpha = 0.5)) +
     stat_abline(yintercept = 0, slope = 1) +
-    scale_x_log10() +
-    scale_y_log10() +
     scale_shape_manual(values = c("EASYHAM" = 1,
                                   "HARDHAM" = 2,
                                   "SPAM" = 3),
