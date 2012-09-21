@@ -77,7 +77,7 @@ loadings <- as.numeric(principal.component)
 ggplot(data.frame(Loading = loadings),
   aes(x = Loading, fill = 1)) +
   geom_density() +
-  them(legend.position = 'none')
+  theme(legend.position = 'none')
 
 # Tenth code snippet
 market.index <- predict(pca)[, 1]
