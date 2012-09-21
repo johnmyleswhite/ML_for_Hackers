@@ -25,7 +25,7 @@
 # Load libraries and data
 library(ggplot2)    # We'll use ggplot2 for all of our visualizations
 library(plyr)       # For data manipulation
-library(scales)
+library(scales)     # We'll need to fix date formats in plots
 
 # This is a tab-delimited file, so we use 'read.delim' and set the separator as a tab character.
 # We also have to alter two defaults; first, we want the strings to not be converted to
@@ -119,6 +119,7 @@ head(ufo.us)
 quick.hist <- ggplot(ufo.us, aes(x = DateOccurred)) +
   geom_histogram() + 
   scale_x_date(breaks = "50 years")
+  
 ggsave(plot = quick.hist,
        filename = file.path("images", "quick_hist.pdf"),
        height = 6,
@@ -217,6 +218,7 @@ ggsave(plot = state.plot,
 
 # Create a new graph where the number of signtings is normailzed by the state population
 state.pop <- read.csv(file.path('data/census.csv'), stringsAsFactors=FALSE)
+
 state.pop$abbs <- sapply(state.pop$State, function(x) state.abb[grep(paste('^', x, sep=''), state.name)])
 all.sightings$Sightings.Norm <- sapply(1:nrow(all.sightings), 
     function(i) all.sightings$Sightings[i] / state.pop$X2000[which(state.pop$abbs== all.sightings$State[i])])

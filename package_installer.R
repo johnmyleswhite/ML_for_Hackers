@@ -24,6 +24,7 @@ cran.packages <- c("ggplot2",
                    "plyr",
                    "RCurl",
                    "RJSONIO",
+                   "scales"
                    "tm",
                    "XML")
 
