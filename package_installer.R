@@ -27,6 +27,7 @@ cran.packages <- c("e1071",
                    "RCurl",
                    "reshape",
                    "RJSONIO",
+                   "scales"
                    "tm",
                    "XML")
 
