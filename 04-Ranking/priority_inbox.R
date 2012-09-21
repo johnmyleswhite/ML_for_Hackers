@@ -7,7 +7,7 @@
 #                   the simple work counts used in Chapter 3.
 # Data Used:       Email messages contained in ../../03-Classification/code/data/
 #                   source: http://spamassassin.apache.org/publiccorpus/
-# Packages Used:   tm, ggplot2
+# Packages Used:   tm, ggplot2, plyr
 
 # All source code is copyright (c) 2012, under the Simplified BSD License.  
 # For more information on FreeBSD see: http://www.opensource.org/licenses/bsd-license.php
@@ -24,6 +24,7 @@
 # Load libraries
 library('tm')
 library('ggplot2')
+library('plyr')
 
 # Set the global paths
 data.path <- file.path("..", "03-Classification", "data")
@@ -161,12 +162,12 @@ from.scales <- ggplot(from.ex) +
                 color = "darkblue")) +
   scale_x_continuous(breaks = 1:nrow(from.ex), labels = from.ex$From.EMail) +
   coord_flip() +
-  scale_fill_manual(values = c("lightgrey" = "lightgrey"), legend = FALSE) +
-  scale_color_manual(values = c("darkblue" = "darkblue"), legend = FALSE) +
+  scale_fill_manual(values = c("lightgrey" = "lightgrey"), guide = "none") +
+  scale_color_manual(values = c("darkblue" = "darkblue"), guide = "none") +
   ylab("Number of Emails Received (truncated at 6)") +
   xlab("Sender Address") +
   theme_bw() +
-  opts(axis.text.y = theme_text(size = 5, hjust = 1))
+  theme(axis.text.y = element_text(size = 5, hjust = 1))
 ggsave(plot = from.scales,
        filename = file.path("images", "0011_from_scales.pdf"),
        height = 4.8,
@@ -188,7 +189,7 @@ from.rescaled <- ggplot(from.weight, aes(x = 1:nrow(from.weight))) +
   xlab("") +
   ylab("Number of emails Receieved") +
   theme_bw() +
-  opts(axis.text.y = theme_blank(), axis.text.x = theme_blank())
+  theme(axis.text.y = element_blank(), axis.text.x = element_blank())
 ggsave(plot = from.rescaled,
        filename = file.path("images", "0012_from_rescaled.pdf"),
        height = 4.8,
@@ -423,7 +424,7 @@ priority.threshold <- median(train.ranks.df$Rank)
 threshold.plot <- ggplot(train.ranks.df, aes(x = Rank)) +
   stat_density(aes(fill="darkred")) +
   geom_vline(xintercept = priority.threshold, linetype = 2) +
-  scale_fill_manual(values = c("darkred" = "darkred"), legend = FALSE) +
+  scale_fill_manual(values = c("darkred" = "darkred"), guide = "none") +
   theme_bw()
 ggsave(plot = threshold.plot,
        filename = file.path("images", "01_threshold_plot.pdf"),
@@ -455,7 +456,7 @@ testing.plot <- ggplot(subset(final.df, Type == "TRAINING"), aes(x = Rank)) +
   stat_density(data = subset(final.df, Type == "TESTING"),
                aes(fill = Type, alpha = 0.65)) +
   geom_vline(xintercept = priority.threshold, linetype = 2) +
-  scale_alpha(legend = FALSE) +
+  scale_alpha(guide = "none") +
   scale_fill_manual(values = c("TRAINING" = "darkred", "TESTING" = "darkblue")) +
   theme_bw()
 ggsave(plot = testing.plot,

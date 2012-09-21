@@ -16,13 +16,16 @@
 # Create a vector containing all of the packages that will be used in the case studies
 # (in no particular order)
 
-cran.packages <- c("ggplot2",
+cran.packages <- c("e1071",
+                   "ggplot2",
                    "glmnet",
+                   "Hmisc",
                    "igraph",
                    "lme4",
                    "lubridate",
                    "plyr",
                    "RCurl",
+                   "reshape",
                    "RJSONIO",
                    "scales"
                    "tm",

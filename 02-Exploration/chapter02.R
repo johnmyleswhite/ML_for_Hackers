@@ -372,7 +372,7 @@ ggplot(heights.weights[1:2000, ], aes(x = Height, y = Weight)) +
 # Visualize how gender depends on height and weight.
 ggplot(heights.weights, aes(x = Height, y = Weight)) +
   geom_point(aes(color = Gender, alpha = 0.25)) +
-  scale_alpha(legend = FALSE) + 
+  scale_alpha(guide = "none") + 
   scale_color_manual(values = c("Male" = "black", "Female" = "gray")) +
   theme_bw()
 
@@ -393,7 +393,7 @@ logit.model <- glm(Male ~ Weight + Height,
 
 ggplot(heights.weights, aes(x = Height, y = Weight)) +
   geom_point(aes(color = Gender, alpha = 0.25)) +
-  scale_alpha(legend = FALSE) + 
+  scale_alpha(guide = "none") + 
   scale_color_manual(values = c("Male" = "black", "Female" = "gray")) +
   theme_bw() +
   stat_abline(intercept = -coef(logit.model)[1] / coef(logit.model)[2],
