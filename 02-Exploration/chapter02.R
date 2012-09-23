@@ -372,11 +372,7 @@ ggplot(heights.weights[1:2000, ], aes(x = Height, y = Weight)) +
 # Visualize how gender depends on height and weight.
 ggplot(heights.weights, aes(x = Height, y = Weight)) +
   geom_point(aes(color = Gender, alpha = 0.25)) +
-<<<<<<< HEAD
-  scale_alpha(guide= "none") + 
-=======
   scale_alpha(guide = "none") + 
->>>>>>> jmw/master
   scale_color_manual(values = c("Male" = "black", "Female" = "gray")) +
   theme_bw()
 

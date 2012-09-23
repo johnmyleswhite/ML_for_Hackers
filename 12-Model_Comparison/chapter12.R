@@ -43,11 +43,7 @@ mean(with(df, svm.predictions == Label))
 #[1] 0.7204
 
 # Third code snippet
-<<<<<<< HEAD
-library('reshape')
-=======
 library("reshape")
->>>>>>> jmw/master
 df <- cbind(df,
             data.frame(Logit = ifelse(predict(logit.fit) > 0, 1, 0),
                        SVM = ifelse(predict(svm.fit) > 0, 1, 0)))

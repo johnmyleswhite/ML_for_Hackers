@@ -44,13 +44,8 @@ val <- data.frame(cbind(x, rbind(y1, y2, y3)),
 ex1 <- ggplot(val, aes(x, V2)) +
   geom_jitter(aes(shape = as.factor(V3)),
                   position = position_jitter(height = 2)) +
-<<<<<<< HEAD
-  scale_shape_discrete(guide="none", solid = FALSE) +
-  geom_hline(aes(yintercept = c(10,30)), linetype = 2) +
-=======
   scale_shape_discrete(guide = "none", solid = FALSE) +
-  geom_hline(aes(yintercept = c(10,30), linetype = 2)) +
->>>>>>> jmw/master
+  geom_hline(aes(yintercept = c(10,30)), linetype = 2) +
   theme_bw() +
   xlab("X") +
   ylab("Y")

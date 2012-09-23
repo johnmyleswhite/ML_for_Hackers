@@ -2,8 +2,4 @@
 .dropbox
 code_check*
 nohup.out
-<<<<<<< HEAD
 *.pdf
-=======
-+*.pdf
->>>>>>> jmw/master
