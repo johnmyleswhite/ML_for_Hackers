@@ -44,8 +44,13 @@ val <- data.frame(cbind(x, rbind(y1, y2, y3)),
 ex1 <- ggplot(val, aes(x, V2)) +
   geom_jitter(aes(shape = as.factor(V3)),
                   position = position_jitter(height = 2)) +
+<<<<<<< HEAD
   scale_shape_discrete(guide="none", solid = FALSE) +
   geom_hline(aes(yintercept = c(10,30)), linetype = 2) +
+=======
+  scale_shape_discrete(guide = "none", solid = FALSE) +
+  geom_hline(aes(yintercept = c(10,30), linetype = 2)) +
+>>>>>>> jmw/master
   theme_bw() +
   xlab("X") +
   ylab("Y")
@@ -302,11 +307,9 @@ class.df$Class <- as.logical(as.numeric(class.df$Class))
 class.df$Type <- as.factor(class.df$Type)
 
 # Create final plot of results
-class.plot <- ggplot(class.df, aes(x = Pr.HAM, Pr.SPAM)) +
+class.plot <- ggplot(class.df, aes(x = log(Pr.HAM), log(Pr.SPAM))) +
     geom_point(aes(shape = Type, alpha = 0.5)) +
     stat_abline(yintercept = 0, slope = 1) +
-    scale_x_log10() +
-    scale_y_log10() +
     scale_shape_manual(values = c("EASYHAM" = 1,
                                   "HARDHAM" = 2,
                                   "SPAM" = 3),

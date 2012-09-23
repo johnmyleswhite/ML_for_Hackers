@@ -173,6 +173,7 @@ top.1000.sites <- read.csv(file.path('data', 'top_1000_sites.tsv'),
 
 ggplot(top.1000.sites, aes(x = PageViews, y = UniqueVisitors)) +
   geom_point()
+ggsave(file.path("images", "page_views_vs_visitors.pdf"))
 
 # Eighteenth snippet
 ggplot(top.1000.sites, aes(x = PageViews)) +
@@ -185,11 +186,13 @@ ggplot(top.1000.sites, aes(x = log(PageViews))) +
 # Twentieth snippet
 ggplot(top.1000.sites, aes(x = log(PageViews), y = log(UniqueVisitors))) +
   geom_point()
+ggsave(file.path("images", "log_page_views_vs_log_visitors.pdf"))
 
 # Twenty-first snippet
 ggplot(top.1000.sites, aes(x = log(PageViews), y = log(UniqueVisitors))) +
   geom_point() +
   geom_smooth(method = 'lm', se = FALSE)
+ggsave(file.path("images", "log_page_views_vs_log_visitors_with_lm.pdf"))
 
 # Twenty-second snippet
 lm.fit <- lm(log(PageViews) ~ log(UniqueVisitors),
