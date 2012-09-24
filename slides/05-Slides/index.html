@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+	<!--
+	Google HTML5 slide template
+
+Authors: Luke Mah?? (code)
+Marcin Wichary (code and design)
+
+Dominic Mazzoni (browser compatibility)
+Charles Chen (ChromeVox support)
+
+URL: http://code.google.com/p/html5slides/
+	-->
+	
+<html>
+<head>
+	
+	<meta charset='utf-8'>
+	<title>Machine Learning for Hackers</title>
+  <meta name="description" content="Machine Learning for Hackers">
+  <meta name="author" content="">
+  <meta name="generator" content="slidify" />
+	
+	<!-- LOAD STYLE SHEETS -->
+	<link rel="stylesheet" href="/Library/Frameworks/R.framework/Versions/2.15/Resources/library/slidify/libraries/html5slides/default/styles.css">
+	<link rel="stylesheet" href="/Library/Frameworks/R.framework/Versions/2.15/Resources/library/slidify/libraries/html5slides/default/uulm.css">
+	<link rel="stylesheet" href="/Library/Frameworks/R.framework/Versions/2.15/Resources/library/slidify/libraries/highlight.js/styles/github.css">
+  <!-- LOAD CUSTOM CSS -->
+  <link rel="stylesheet" href="assets/stylesheets/custom.css">
+
+    
+</head>
+<body style='display: none'>
+	<section class='slides layout-regular template-regular'>
+	  <article class = "" id = "slide-1"> 
+	    <h1>Machine Learning for Hackers</h1>
+
+
+<div style="float: right; border: 1px solid black;"><img src="assets/media/lrg.jpg" width=200px></div>
+
+<ul>
+<li>John Myles White, Department of Psychology, Princeton University</li>
+<li>Drew Conway, Department of Politics, New York University</li>
+</ul>
+
+    </article>
+	  <article class = "" id = "slide-2"> 
+	    <h3>The Machine Learning Toolkit</h3>
+
+
+<ul>
+<li>Linear regression</li>
+<li>Logistic regression</li>
+</ul>
+
+    </article>
+	  <article class = "" id = "slide-3"> 
+	    
+<p><img src="figures/regression.pdf" alt="Regression"></p>
+
+    </article>
+	  <article class = "" id = "slide-4"> 
+	    
+<p><img src="figures/classification.pdf" alt="Classification"></p>
+
+    </article>
+	  <article class = "" id = "slide-5"> 
+	    <h3>Two Types of Data</h3>
+
+
+<ul>
+<li>Numeric data</li>
+<li>Categorical data</li>
+</ul>
+
+    </article>
+	  <article class = "" id = "slide-6"> 
+	    <h3>Numeric Data</h3>
+
+
+<ul>
+<li>Discrete/integer data</li>
+<li>Continuous/floating point data</li>
+</ul>
+
+    </article>
+	  <article class = "" id = "slide-7"> 
+	    <h3>Discrete/Integer Data</h3>
+
+
+<ul>
+<li>How many robberies occur in Philadelphia each year?</li>
+<li>How many clicks did banner ads receive on Slashdot last year?</li>
+</ul>
+
+    </article>
+	  <article class = "" id = "slide-8"> 
+	    <h3>Continuous/Floating Point Data</h3>
+
+
+<ul>
+<li>What is the normal human body temperature?</li>
+<li>What was the return on APPL stock yesterday?</li>
+</ul>
+
+    </article>
+	  <article class = "" id = "slide-9"> 
+	    <h3>Categorical Data</h3>
+
+
+<ul>
+<li>Is an e-mail spam or ham?</li>
+<li>Is a person male or female?</li>
+<li>What religion does a census respondent report?</li>
+</ul>
+
+    </article>
+	  <article class = "" id = "slide-10"> 
+	    <h3>From Categorical to Numeric Data</h3>
+
+
+<p>Many tricks for turning categorical data into numbers:</p>
+
+<ul>
+<li>0/1 Boolean coding
+
+<ul>
+<li>Spam or not spam?</li>
+</ul></li>
+<li>-1/+1 coding
+
+<ul>
+<li>Male or female?</li>
+</ul></li>
+<li>1, 2, ..., K factor level coding
+
+<ul>
+<li>Christian, Jewish or Muslim?</li>
+</ul></li>
+</ul>
+
+    </article>
+	  <article class = "" id = "slide-11"> 
+	    <h3>The ML Toolkit</h3>
+
+
+<ul>
+<li>Linear regression
+
+<ul>
+<li>Numeric outputs</li>
+<li>Numeric + categorical inputs</li>
+</ul></li>
+<li>Logistic regression
+
+<ul>
+<li>Categorical outputs</li>
+<li>Numeric + categorical inputs</li>
+</ul></li>
+</ul>
+
+    </article>
+	  <article class = "" id = "slide-12"> 
+	    <h3>A Toy Regression Problem</h3>
+
+
+<p><img src="figures/fahrenheit.pdf" alt="ToyRegression"></p>
+
+    </article>
+	  <article class = "" id = "slide-13"> 
+	    <h3>Solve in R</h3>
+
+
+<p><img src="figures/ToyRegression.jpg" alt="ToyRegressionR"></p>
+
+    </article>
+	  <article class = "" id = "slide-14"> 
+	    <h3>Results</h3>
+
+
+<p><img src="figures/ToyRegressionResults.jpg" alt="ToyRegressionResults"></p>
+
+    </article>
+	  <article class = "" id = "slide-15"> 
+	    <h3>Solve Variant in R</h3>
+
+
+<p><img src="figures/ToyRegression2.jpg" alt="ToyRegressionR2"></p>
+
+    </article>
+	  <article class = "" id = "slide-16"> 
+	    <h3>Results</h3>
+
+
+<p><img src="figures/ToyRegressionResults2.jpg" alt="ToyRegressionResults2"></p>
+
+    </article>
+	  <article class = "" id = "slide-17"> 
+	    <h3>A Toy Classification Problem</h3>
+
+
+<p><img src="figures/spam1.pdf" alt="ToyClassification"></p>
+
+    </article>
+	  <article class = "" id = "slide-18"> 
+	    <h3>Categories to Numbers</h3>
+
+
+<p><img src="figures/spam2.pdf" alt="ToyClassification"></p>
+
+    </article>
+	  <article class = "" id = "slide-19"> 
+	    <h3>Solve in R</h3>
+
+
+<p><img src="figures/ToyClassification.jpg" alt="ToyClassificationR"></p>
+
+    </article>
+	  <article class = "" id = "slide-20"> 
+	    <h3>Results</h3>
+
+
+<p><img src="figures/ToyClassificationResults.jpg" alt="ToyClassificationResults"></p>
+
+    </article>
+	  <article class = "" id = "slide-21"> 
+	    <h3>Solve Variant in R</h3>
+
+
+<p><img src="figures/ToyClassification2.jpg" alt="ToyClassificationR2"></p>
+
+    </article>
+	  <article class = "" id = "slide-22"> 
+	    <h3>Results</h3>
+
+
+<p><img src="figures/ToyClassificationResults2.jpg" alt="ToyClassificationResults2"></p>
+
+    </article>
+	  <article class = "" id = "slide-23"> 
+	    <h3>Richer Case Study</h3>
+
+
+<ul>
+<li>Predict web site popularity</li>
+<li>Predict book sales for O&#39;Reilly&#39;s books</li>
+</ul>
+
+    </article>
+	  <article class = "" id = "slide-24"> 
+	    <h3>Web Data</h3>
+
+
+<p><img src="figures/web_ranks1.pdf" alt="WebData1"></p>
+
+    </article>
+	  <article class = "" id = "slide-25"> 
+	    <h3>Web Data</h3>
+
+
+<p><img src="figures/web_ranks2.pdf" alt="WebData2"></p>
+
+    </article>
+	  <article class = "" id = "slide-26"> 
+	    <h3>Web Data</h3>
+
+
+<p><img src="figures/web_ranks3.pdf" alt="WebData3"></p>
+
+    </article>
+	  <article class = "" id = "slide-27"> 
+	    <h3>Load and Check Web Data</h3>
+
+
+<pre><code>top.1000.sites &lt;- read.csv(file.path(&#39;data&#39;, &#39;top_1000_sites.tsv&#39;),
+                           sep = &#39;\t&#39;,
+                           stringsAsFactors = FALSE)
+head(top.1000.sites, n = 4)
+</code></pre>
+
+    </article>
+	  <article class = "" id = "slide-28"> 
+	    <h3>Page Views vs Visitors</h3>
+
+
+<pre><code>ggplot(top.1000.sites, aes(x = PageViews, y = UniqueVisitors)) +
+  geom_point()
+ggsave(file.path(&quot;images&quot;, &quot;page_views_vs_visitors.pdf&quot;))
+</code></pre>
+
+    </article>
+	  <article class = "" id = "slide-29"> 
+	    <h3>Page Views vs Visitors</h3>
+
+
+<p><img src="images/page_views_vs_visitors.pdf" alt="page-views"></p>
+
+    </article>
+	  <article class = "" id = "slide-30"> 
+	    <h3>Log Page Views vs Log Visitors</h3>
+
+
+<pre><code>ggplot(top.1000.sites, aes(x = log(PageViews),
+                           y = log(UniqueVisitors))) +
+  geom_point()
+ggsave(file.path(&quot;images&quot;, &quot;log_page_views_vs_log_visitors.pdf&quot;))
+</code></pre>
+
+    </article>
+	  <article class = "" id = "slide-31"> 
+	    <h3>Log Page Views vs Log Visitors</h3>
+
+
+<p><img src="images/log_page_views_vs_log_visitors.pdf" alt="log-page-views"></p>
+
+    </article>
+	  <article class = "" id = "slide-32"> 
+	    <h3>Visual Linear Regression</h3>
+
+
+<pre><code>ggplot(top.1000.sites, aes(x = log(PageViews),
+                           y = log(UniqueVisitors))) +
+  geom_point() +
+  geom_smooth(method = &#39;lm&#39;, se = FALSE)
+ggsave(file.path(&quot;images&quot;,
+                 &quot;log_page_views_vs_log_visitors_with_lm.pdf&quot;))
+</code></pre>
+
+    </article>
+	  <article class = "" id = "slide-33"> 
+	    <h3>Visual Linear Regression</h3>
+
+
+<p><img src="images/log_page_views_vs_log_visitors_with_lm.pdf" alt="lm-log-page-views"></p>
+
+    </article>
+	  <article class = "" id = "slide-34"> 
+	    <h3>Simple Linear Regression</h3>
+
+
+<pre><code>lm.fit &lt;- lm(log(PageViews) ~ log(UniqueVisitors),
+             data = top.1000.sites)
+summary(lm.fit)
+</code></pre>
+
+    </article>
+	  <article class = "" id = "slide-35"> 
+	    <h3>Simple Linear Regression</h3>
+
+
+<pre><code>Call:
+lm(formula = log(PageViews) ~ log(UniqueVisitors), data = top.1000.sites)
+
+Residuals:
+Min 1Q Median 3Q Max
+-2.1825 -0.7986 -0.0741 0.6467 5.1549
+
+Coefficients:
+Estimate Std. Error t value Pr(&gt;|t|)
+(Intercept) -2.83441 0.75201 -3.769 0.000173 ***
+log(UniqueVisitors) 1.33628 0.04568 29.251 &lt; 2e-16 ***
+---
+Signif. codes: 0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 1.084 on 998 degrees of freedom
+Multiple R-squared: 0.4616, Adjusted R-squared: 0.4611
+F-statistic: 855.6 on 1 and 998 DF, p-value: &lt; 2.2e-16
+</code></pre>
+
+    </article>
+	  <article class = "" id = "slide-36"> 
+	    <h3>Super-Charged Linear Regression</h3>
+
+
+<pre><code>lm.fit &lt;- lm(log(PageViews) ~ HasAdvertising +
+                              log(UniqueVisitors) +
+                              InEnglish,
+             data = top.1000.sites)
+summary(lm.fit)
+</code></pre>
+
+    </article>
+	  <article class = "" id = "slide-37"> 
+	    <h3>Super-Charged Linear Regression</h3>
+
+
+<pre><code>Call:
+lm(formula = log(PageViews) ~ HasAdvertising + log(UniqueVisitors) +
+InEnglish, data = top.1000.sites)
+
+Residuals:
+Min 1Q Median 3Q Max
+-2.4283 -0.7685 -0.0632 0.6298 5.4133
+
+Coefficients:
+Estimate Std. Error t value Pr(&gt;|t|)
+(Intercept) -1.94502 1.14777 -1.695 0.09046 .
+HasAdvertisingYes 0.30595 0.09170 3.336 0.00088 ***
+log(UniqueVisitors) 1.26507 0.07053 17.936 &lt; 2e-16 ***
+InEnglishNo 0.83468 0.20860 4.001 6.77e-05 ***
+InEnglishYes -0.16913 0.20424 -0.828 0.40780
+---
+Signif. codes: 0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 1.067 on 995 degrees of freedom
+Multiple R-squared: 0.4798, Adjusted R-squared: 0.4777
+F-statistic: 229.4 on 4 and 995 DF, p-value: &lt; 2.2e-16
+</code></pre>
+
+    </article>
+	  <article class = "" id = "slide-38"> 
+	    <h3>Measuring Predictive Power</h3>
+
+
+<pre><code>lm.fit &lt;- lm(log(PageViews) ~ HasAdvertising,
+             data = top.1000.sites)
+summary(lm.fit)$r.squared
+[1] 0.01073766
+
+lm.fit &lt;- lm(log(PageViews) ~ log(UniqueVisitors),
+             data = top.1000.sites)
+summary(lm.fit)$r.squared
+[1] 0.4615985
+
+lm.fit &lt;- lm(log(PageViews) ~ InEnglish,
+             data = top.1000.sites)
+summary(lm.fit)$r.squared
+[1] 0.03122206
+</code></pre>
+
+    </article>
+	  <article class = "" id = "slide-39"> 
+	    <h3>Correlation and Causation</h3>
+
+
+<pre><code>x &lt;- 1:10
+y &lt;- x^2
+
+cor(x, y)
+[1] 0.9745586
+
+coef(lm(scale(y) ~ scale(x)))[2]
+[1] 9.745586e-01
+</code></pre>
+
+    </article>
+	  <article class = "" id = "slide-40"> 
+	    <h3>More Topics</h3>
+
+
+<ul>
+<li>Regularization</li>
+<li>Cross-Validation</li>
+<li>Text Regression</li>
+<li>Optimization</li>
+</ul>
+
+    </article>
+  </section>
+</body>
+  <!-- LOAD JAVASCRIPTS  -->
+	<script src='/Library/Frameworks/R.framework/Versions/2.15/Resources/library/slidify/libraries/html5slides/default/slides.js'></script>
+	<!-- LOAD MATHJAX JS -->
+  <script type="text/x-mathjax-config">
+     MathJax.Hub.Config({
+       tex2jax: {
+         inlineMath: [['$','$'], ['\\(','\\)']],
+         processEscapes: true
+       }
+     });
+  </script>
+  <script type="text/javascript"  
+src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  </script>
+  <!-- DONE LOADING MATHJAX -->
+	  <!-- LOAD HIGHLIGHTER JS FILES -->
+  <script src="/Library/Frameworks/R.framework/Versions/2.15/Resources/library/slidify/libraries/highlight.js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- DONE LOADING CSS FILES AND JS -->
+
+		
+	
+</html>
+

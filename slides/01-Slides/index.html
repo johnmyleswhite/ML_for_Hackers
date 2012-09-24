@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+	<!--
+	Google HTML5 slide template
+
+Authors: Luke Mah?? (code)
+Marcin Wichary (code and design)
+
+Dominic Mazzoni (browser compatibility)
+Charles Chen (ChromeVox support)
+
+URL: http://code.google.com/p/html5slides/
+	-->
+	
+<html>
+<head>
+	
+	<meta charset='utf-8'>
+	<title>Machine Learning for Hackers</title>
+  <meta name="description" content="Machine Learning for Hackers">
+  <meta name="author" content="">
+  <meta name="generator" content="slidify" />
+	
+	<!-- LOAD STYLE SHEETS -->
+	<link rel="stylesheet" href="/Library/Frameworks/R.framework/Versions/2.15/Resources/library/slidify/libraries/html5slides/default/styles.css">
+	<link rel="stylesheet" href="/Library/Frameworks/R.framework/Versions/2.15/Resources/library/slidify/libraries/html5slides/default/uulm.css">
+	<link rel="stylesheet" href="/Library/Frameworks/R.framework/Versions/2.15/Resources/library/slidify/libraries/highlight.js/styles/github.css">
+  <!-- LOAD CUSTOM CSS -->
+  <link rel="stylesheet" href="assets/stylesheets/custom.css">
+
+    
+</head>
+<body style='display: none'>
+	<section class='slides layout-regular template-regular'>
+	  <article class = "" id = "slide-1"> 
+	    <h1>Machine Learning for Hackers</h1>
+
+
+<div style="float: right; border: 1px solid black;"><img src="assets/media/lrg.jpg" width=200px></div>
+
+<ul>
+<li>John Myles White, Department of Psychology, Princeton University</li>
+<li>Drew Conway, Department of Politics, New York University</li>
+</ul>
+
+    </article>
+	  <article class = "" id = "slide-2"> 
+	    <h3>The R programming language</h3>
+
+
+<blockquote>
+<p><em>The best thing about R is that it was developed by statisticians. The worst thing about R is that...it was developed by statisticians.</em></p>
+
+<p>~ Bo Cowgill, Google</p>
+</blockquote>
+
+<div style="font-size: 30px;">Pros</div>
+
+<ul>
+<li><em>lingua franca</em> of scientific computing</li>
+<li>Easy prototyping</li>
+</ul>
+
+<div style="font-size: 30px;">Cons</div>
+
+<ul>
+<li>Odd syntax</li>
+<li>Slow, not for production</li>
+</ul>
+
+    </article>
+	  <article class = "" id = "slide-3"> 
+	    <h3>What data will we use?</h3>
+
+
+<p><center><div style="border: none; margin-left: auto; margin-right: auto;"><img src="assets/media/ufo_phoenix_ley97.jpg" width=640px></div></center></p>
+
+<p>60,000+ Documented UFO Sightings With Text Descriptions And Metadata</p>
+
+<p><a href="http://www.infochimps.com/datasets/60000-documented-ufo-sightings-with-text-descriptions-and-metada">http://www.infochimps.com/datasets/60000-documented-ufo-sightings-with-text-descriptions-and-metada</a></p>
+
+    </article>
+	  <article class = "" id = "slide-4"> 
+	    <h3>What question will we explore?</h3>
+
+
+<p><br></p>
+
+<div style="font-size: 36px">What, if any, variation is there in UFO sightings across the United States over time?</div>
+
+<ul>
+<li>Working with dates</li>
+<li>Workings with locations</li>
+<li>Time-series</li>
+</ul>
+
+    </article>
+	  <article class = "" id = "slide-5"> 
+	    <h3>Taxonomy of Data Science</h3>
+
+
+<div style="font-size: 30px; top-margin: 10px;">OWESOM</div>
+
+<ul>
+<li>Obtain</li>
+<li>Scrub</li>
+<li>Explore</li>
+<li>Model</li>
+<li>iNterpret</li>
+</ul>
+
+<p>Pronounced &quot;awesome&quot;</p>
+
+<p>&quot;<em>A Taxonomy of Data Science</em>,&quot; by Hilary Mason and Chris Wiggins</p>
+
+<p><a href="http://www.dataists.com/2010/09/a-taxonomy-of-data-science/">http://www.dataists.com/2010/09/a-taxonomy-of-data-science/</a> </p>
+
+    </article>
+	  <article class = "" id = "slide-6"> 
+	    <h3>What we will cover with the UFO data</h3>
+
+
+<ul>
+<li><div style="color: red;">Obtain</div>
+
+<ul>
+<li>taken care of by Infochimps.com</li>
+</ul></li>
+<li><div style="color: red;">Scrub</div>
+
+<ul>
+<li>Load, clean and aggregate</li>
+</ul></li>
+<li><div style="color: red;">Explore</div>
+
+<ul>
+<li>Summary statistics and visualization</li>
+</ul></li>
+<li>Model</li>
+<li>iNterpret</li>
+</ul>
+
+    </article>
+	  <article class = "" id = "slide-7"> 
+	    <h3>Loading the libraries</h3>
+
+
+<pre><code>library(ggplot2)
+library(plyr)
+library(scales)
+</code></pre>
+
+<ul>
+<li><code>ggplot2</code> for all of our visualizations</li>
+<li><code>plyr</code> for data manipulation</li>
+<li><code>scales</code> to fix date formats in plots</li>
+</ul>
+
+    </article>
+	  <article class = "" id = "slide-8"> 
+	    <h3>Load and inspect the data</h3>
+
+
+<pre><code>ufo &lt;- read.delim(file.path(&quot;data&quot;, &quot;ufo&quot;, &quot;ufo_awesome.tsv&quot;), sep = &quot;\t&quot;, stringsAsFactors = FALSE, 
+    header = FALSE, na.strings = &quot;&quot;)
+# stringsAsFactors = FALSE
+</code></pre>
+
+<p>The data file does not come with column labels, but from the notebook we know what they are</p>
+
+<pre><code>names(ufo) &lt;- c(&quot;DateOccurred&quot;, &quot;DateReported&quot;, &quot;Location&quot;, &quot;ShortDescription&quot;, 
+    &quot;Duration&quot;, &quot;LongDescription&quot;)
+
+head(ufo, 4)
+
+##   DateOccurred DateReported       Location ShortDescription Duration
+## 1     19951009     19951009  Iowa City, IA             &lt;NA&gt;     &lt;NA&gt;
+## 2     19951010     19951011  Milwaukee, WI             &lt;NA&gt;   2 min.
+## 3     19950101     19950103    Shelton, WA             &lt;NA&gt;     &lt;NA&gt;
+## 4     19950510     19950510   Columbia, MO             &lt;NA&gt;   2 min.
+##                                                                                                                                                                           LongDescription
+## 1                                          Man repts. witnessing &amp;quot;flash, followed by a classic UFO, w/ a tailfin at back.&amp;quot; Red color on top half of tailfin. Became triangular.
+## 2                                                       Man  on Hwy 43 SW of Milwaukee sees large, bright blue light streak by his car, descend, turn, cross road ahead, strobe. Bizarre!
+## 3 Telephoned Report:CA woman visiting daughter witness discs and triangular ships over Squaxin Island in Puget Sound. Dramatic.  Written report, with illustrations, submitted to NUFORC.
+## 4                                                    Man repts. son&amp;apos;s bizarre sighting of small humanoid creature in back yard.  Reptd. in Acteon Journal, St. Louis UFO newsletter.
+</code></pre>
+
+    </article>
+	  <article class = "" id = "slide-9"> 
+	    <h3>Time to scrub the date strings</h3>
+
+
+<p>To work with the dates, we will need to convert the &#39;YYYYMMDD&#39; string to an R <code>Date</code> type, but something has gone wrong with the data.</p>
+
+<pre><code>as.Date(ufo$DateOccurred, format = &quot;%Y%m%d&quot;)
+
+## Error: input string is too long
+</code></pre>
+
+<p>We know that the date strings are always 8 characters long, so to fix this we identify the bad rows based on the length of the elements.</p>
+
+<pre><code>good.rows &lt;- ifelse(nchar(ufo$DateOccurred) != 8 | nchar(ufo$DateReported) != 
+    8, FALSE, TRUE)
+length(which(!good.rows))
+
+## [1] 731
+</code></pre>
+
+<p>So, we extract only those rows that match our 8 character length criteria</p>
+
+<pre><code>ufo &lt;- ufo[good.rows, ]
+</code></pre>
+
+    </article>
+	  <article class = "" id = "slide-10"> 
+	    <h3>Convert date strings</h3>
+
+
+<p>We replace the strings with R <code>Date</code> objects, so we can treat this data as a time-series</p>
+
+<pre><code>ufo$DateOccurred &lt;- as.Date(ufo$DateOccurred, format = &quot;%Y%m%d&quot;)
+ufo$DateReported &lt;- as.Date(ufo$DateReported, format = &quot;%Y%m%d&quot;)
+</code></pre>
+
+<p>We can now use the <code>summary</code> function to inspect the date range</p>
+
+<pre><code>summary(ufo[, c(&quot;DateOccurred&quot;, &quot;DateReported&quot;)])
+
+##   DateOccurred         DateReported       
+##  Min.   :1400-06-30   Min.   :1905-06-23  
+##  1st Qu.:1999-09-15   1st Qu.:2002-05-20  
+##  Median :2003-12-15   Median :2005-03-02  
+##  Mean   :2001-02-10   Mean   :2004-11-28  
+##  3rd Qu.:2007-06-21   3rd Qu.:2007-12-25  
+##  Max.   :2010-08-30   Max.   :2010-08-30
+</code></pre>
+
+    </article>
+	  <article class = "" id = "slide-11"> 
+	    <h3>Creating new columns from data</h3>
+
+
+<p>It will be useful to create separate columns for both town and state from the Location column</p>
+
+<pre><code>get.location &lt;- function(l) {
+    split.location &lt;- tryCatch(strsplit(l, &quot;,&quot;)[[1]], error = function(e) return(c(NA, 
+        NA)))
+    clean.location &lt;- gsub(&quot;^ &quot;, &quot;&quot;, split.location)
+    if (length(clean.location) &gt; 2) {
+        return(c(NA, NA))
+    } else {
+        return(clean.location)
+    }
+}
+# error = function(e) return(c(NA, NA)))
+</code></pre>
+
+<p>Apply this function across <code>Location</code> vector</p>
+
+<pre><code>city.state &lt;- lapply(ufo$Location, get.location)
+location.matrix &lt;- do.call(rbind, city.state)
+</code></pre>
+
+<p>Add the new <code>USCity</code> and <code>USState</code> columns to the data frame</p>
+
+<pre><code>ufo &lt;- transform(ufo, USCity = location.matrix[, 1], USState = location.matrix[, 
+    2], stringsAsFactors = FALSE)
+</code></pre>
+
+    </article>
+	  <article class = "" id = "slide-12"> 
+	    <h3>Final bit of cleaning</h3>
+
+
+<p>We need to insert the <code>NA</code> value for those rows that are not from the United States.  We use the <code>match</code> function to identify them. Then, extract that that are from U.S. states by looking for those rows that are not <code>NA</code>.</p>
+
+<pre><code>ufo$USState &lt;- state.abb[match(ufo$USState, state.abb)]
+
+ufo.us &lt;- subset(ufo, !is.na(USState))
+</code></pre>
+
+<p>We can now see what states have the most reported sightings</p>
+
+<pre><code>tail(table(ufo$USState)[order(table(ufo$USState))])
+
+## 
+##   AZ   NY   FL   TX   WA   CA 
+## 2077 2391 2810 2995 3302 7503
+</code></pre>
+
+    </article>
+	  <article class = "" id = "slide-13"> 
+	    <h3>Quick visualization</h3>
+
+
+<p>Since the range of the data is so big, let&#39;s make a quick and dirty histogram to see what the distribution of sightings is overtime at 50 year intervals.</p>
+
+<pre><code>quick.hist &lt;- ggplot(ufo.us, aes(x = DateOccurred))
+quick.hist &lt;- quick.hist + geom_histogram()
+quick.hist &lt;- quick.hist + scale_x_date(breaks = &quot;50 years&quot;)
+</code></pre>
+
+    </article>
+	  <article class = "" id = "slide-14"> 
+	    <h3>First histogram of data</h3>
+
+
+<pre><code>## stat_bin: binwidth defaulted to range/30. Use &#39;binwidth = x&#39; to adjust
+## this.
+</code></pre>
+
+<div class="rimage center"><img src="figure/plot_1.png"  class="plot" /></div>
+
+    </article>
+	  <article class = "" id = "slide-15"> 
+	    <h3>Reduce the window, and clean up</h3>
+
+
+<p>The data is heavily skewed to the right, so let&#39;s change the time window to those sightings that happen from 1990 on.  To do this, we&#39;ll create another version of the data set called <code>ufo.us</code>.</p>
+
+<pre><code>ufo.us &lt;- subset(ufo.us, DateOccurred &gt;= as.Date(&quot;1990-01-01&quot;))
+</code></pre>
+
+<p>For this plot, we&#39;ll also make it slightly easier to read by adding borders to the histogram bars.</p>
+
+<pre><code>new.hist &lt;- ggplot(ufo.us, aes(x = DateOccurred))
+new.hist &lt;- new.hist + geom_histogram(aes(fill = &quot;white&quot;, color = &quot;red&quot;))
+new.hist &lt;- new.hist + scale_fill_manual(values = c(white = &quot;white&quot;), guide = &quot;none&quot;)
+new.hist &lt;- new.hist + scale_color_manual(values = c(red = &quot;red&quot;), guide = &quot;none&quot;)
+new.hist &lt;- new.hist + scale_x_date(breaks = &quot;50 years&quot;)
+</code></pre>
+
+    </article>
+	  <article class = "" id = "slide-16"> 
+	    <h3>Distribution of sightings from 1990 on</h3>
+
+
+<pre><code>## stat_bin: binwidth defaulted to range/30. Use &#39;binwidth = x&#39; to adjust
+## this.
+</code></pre>
+
+<div class="rimage center"><img src="figure/plot_2.png"  class="plot" /></div>
+
+    </article>
+	  <article class = "" id = "slide-17"> 
+	    <h3>Aggregating the data</h3>
+
+
+<p>Time can be aggregated at many different levels</p>
+
+<pre><code>print(ufo.us$DateOccurred[1])
+
+## [1] &quot;1995-10-09&quot;
+</code></pre>
+
+<p>We need to refine our question:</p>
+
+<blockquote>
+<p>What, if any, <em>monthly</em> variation is there in UFO sightings across the United States?</p>
+</blockquote>
+
+<div style="float: right; border: 1px solid black; margin: 2px;"><img src="assets/media/split_apply.jpg" width=200px></div>
+
+<p>We use the <code>ddply</code> function in the <code>plyr</code> package to count the number of sightings for each (Month, Year, State) combination.</p>
+
+<p>The <code>plyr</code> package provides functions for splitting data, applying a function over that chunk, and then combining it back together.  A &quot;map-reduce&quot; framework inside of R.</p>
+
+<p>&quot;The Split-Apply-Combine Strategy for Data Analysis,&quot; Hadley Wickham, <em>Journal of Statistical Software</em>. April 2011, Volume 40, Issue 1. <a href="http://www.jstatsoft.org/v40/i01/paper">http://www.jstatsoft.org/v40/i01/paper</a></p>
+
+    </article>
+	  <article class = "" id = "slide-18"> 
+	    <h3>Counting monthly UFO sightings by State</h3>
+
+
+<p>Create a new column in <code>ufo.us</code> with Month-Year for each sighting.  Then, split the data for <code>(YearMonth, USState)</code>, and combine using <code>nrow</code> to get the number of sightings in each state for every Year-Month occurring in the data.</p>
+
+<pre><code>ufo.us$YearMonth &lt;- strftime(ufo.us$DateOccurred, format = &quot;%Y-%m&quot;)
+sightings.counts &lt;- ddply(ufo.us, .(USState, YearMonth), nrow)
+head(sightings.counts)
+
+##   USState YearMonth V1
+## 1      AK   1990-01  1
+## 2      AK   1990-03  1
+## 3      AK   1990-05  1
+## 4      AK   1993-11  1
+## 5      AK   1994-11  1
+## 6      AK   1995-01  1
+</code></pre>
+
+<p>There are several Year-Month and state combinations for which there are no sightings.  We need to fill those in as zero.</p>
+
+<pre><code>date.range &lt;- seq.Date(from = as.Date(min(ufo.us$DateOccurred)), to = as.Date(max(ufo.us$DateOccurred)), 
+    by = &quot;month&quot;)
+date.strings &lt;- strftime(date.range, &quot;%Y-%m&quot;)
+</code></pre>
+
+    </article>
+	  <article class = "" id = "slide-19"> 
+	    <h3>Filling in the missing data with zeros</h3>
+
+
+<pre><code>states.dates &lt;- lapply(state.abb, function(s) cbind(s, date.strings))
+states.dates &lt;- data.frame(do.call(rbind, states.dates), stringsAsFactors = FALSE)
+
+all.sightings &lt;- merge(states.dates, sightings.counts, by.x = c(&quot;s&quot;, &quot;date.strings&quot;), 
+    by.y = c(&quot;USState&quot;, &quot;YearMonth&quot;), all = TRUE)
+</code></pre>
+
+<p>Now, add some column names that make sense, and convert the NA values to zeroes.</p>
+
+<pre><code>names(all.sightings) &lt;- c(&quot;State&quot;, &quot;YearMonth&quot;, &quot;Sightings&quot;)
+all.sightings$Sightings[is.na(all.sightings$Sightings)] &lt;- 0
+head(all.sightings)
+
+##   State YearMonth Sightings
+## 1    AK   1990-01         1
+## 2    AK   1990-02         0
+## 3    AK   1990-03         1
+## 4    AK   1990-04         0
+## 5    AK   1990-05         1
+## 6    AK   1990-06         0
+</code></pre>
+
+<p>Final bit of house cleaning...</p>
+
+<pre><code>all.sightings$YearMonth &lt;- as.Date(rep(date.range, length(state.abb)))
+all.sightings$State &lt;- as.factor(all.sightings$State)
+</code></pre>
+
+    </article>
+	  <article class = "" id = "slide-20"> 
+	    <h3>Inspect the final data set</h3>
+
+
+<pre><code>summary(all.sightings)
+
+##      State         YearMonth            Sightings    
+##  AK     :  248   Min.   :1990-01-01   Min.   : 0.00  
+##  AL     :  248   1st Qu.:1995-02-22   1st Qu.: 0.00  
+##  AR     :  248   Median :2000-04-16   Median : 1.00  
+##  AZ     :  248   Mean   :2000-04-16   Mean   : 3.74  
+##  CA     :  248   3rd Qu.:2005-06-08   3rd Qu.: 4.00  
+##  CO     :  248   Max.   :2010-08-01   Max.   :97.00  
+##  (Other):10912
+</code></pre>
+
+<p>To explore our question we will create a faceted time-series plot to show monthly variation across all fifty states.</p>
+
+    </article>
+	  <article class = "" id = "slide-21"> 
+	    <h3>Faceted plot</h3>
+
+
+<p>We will create a 5x10 gridded series of plots to show the number of UFO sightings in all 50 states over the 20 year span in our data.</p>
+
+<pre><code>state.plot &lt;- ggplot(all.sightings, aes(x = YearMonth, y = Sightings))
+state.plot &lt;- state.plot + geom_line(aes(color = &quot;darkblue&quot;))
+state.plot &lt;- state.plot + facet_wrap(~State, nrow = 10, ncol = 5)
+state.plot &lt;- state.plot + theme_bw()
+state.plot &lt;- state.plot + scale_color_manual(values = c(darkblue = &quot;darkblue&quot;), 
+    guide = &quot;none&quot;)
+state.plot &lt;- state.plot + scale_x_date(breaks = &quot;5 years&quot;, labels = date_format(&quot;%Y&quot;))
+# scale_x_date(breaks = &#39;5 years&#39;, labels = date_format(&#39;%Y&#39;))
+state.plot &lt;- state.plot + xlab(&quot;Years&quot;)
+state.plot &lt;- state.plot + ylab(&quot;Number of Sightings&quot;)
+state.plot &lt;- state.plot + ggtitle(&quot;Number of UFO sightings by Month-Year and U.S. State (1990-2010)&quot;)
+# ggtitle(&#39;Number of UFO sightings by Month-Year and U.S. State
+# (1990-2010)&#39;)
+</code></pre>
+
+    </article>
+	  <article class = "" id = "slide-22"> 
+	    
+<div class="rimage default"><img src="figure/facet_plot_plot_1.png"  class="plot" /></div>
+
+    </article>
+	  <article class = "" id = "slide-23"> 
+	    <h1>What did you notice?</h1>
+
+
+    </article>
+	  <article class = "" id = "slide-24"> 
+	    <h3>How can we make the visualization better?</h3>
+
+
+<p>We are showing raw counts, but state sizes and populations vary wildly.  We not really comparing &quot;apples to apples&quot; by looking at raw counts.</p>
+
+<p>Let&#39;s redraw the graph using per-capita counts to see if it is anymore revealing.</p>
+
+<pre><code>state.pop &lt;- read.csv(file.path(&quot;data/census.csv&quot;), stringsAsFactors = FALSE)
+head(state.pop)
+
+##          State    X2011    X2012    X2000
+## 1   California 37691912 37253956 33871648
+## 2        Texas 25674681 25145561 20851820
+## 3     New York 19465197 19378102 18976457
+## 4      Florida 19057542 18801310 15982378
+## 5     Illinois 12869257 12830632 12419293
+## 6 Pennsylvania 12742886 12702379 12281054
+</code></pre>
+
+    </article>
+	  <article class = "" id = "slide-25"> 
+	    <h3>Merging data</h3>
+
+
+<p>First we need to convert the state names to abbreviations so they match our current data.  We&#39;ll use a simple regex and <code>grep</code>.</p>
+
+<pre><code>state.pop$abbs &lt;- sapply(state.pop$State, function(x) state.abb[grep(paste(&quot;^&quot;, 
+    x, sep = &quot;&quot;), state.name)])
+</code></pre>
+
+<p>Then, we&#39;ll create a new column in <code>all.sightings</code> that contains the per capita number of sightings for every row in our data.</p>
+
+<pre><code>all.sightings$Sightings.Norm &lt;- sapply(1:nrow(all.sightings), function(i) all.sightings$Sightings[i]/state.pop$X2000[which(state.pop$abbs == 
+    all.sightings$State[i])])
+
+head(all.sightings)
+
+##   State  YearMonth Sightings Sightings.Norm
+## 1    AK 1990-01-01         1      1.595e-06
+## 2    AK 1990-02-01         0      0.000e+00
+## 3    AK 1990-03-01         1      1.595e-06
+## 4    AK 1990-04-01         0      0.000e+00
+## 5    AK 1990-05-01         1      1.595e-06
+## 6    AK 1990-06-01         0      0.000e+00
+</code></pre>
+
+    </article>
+	  <article class = "" id = "slide-26"> 
+	    <h3>Slightly change the visualization</h3>
+
+
+<pre><code>state.plot.norm &lt;- ggplot(all.sightings, aes(x = YearMonth, y = Sightings.Norm))
+state.plot.norm &lt;- state.plot.norm + geom_line(aes(color = &quot;darkblue&quot;))
+state.plot.norm &lt;- state.plot.norm + facet_wrap(~State, nrow = 10, ncol = 5)
+state.plot.norm &lt;- state.plot.norm + theme_bw()
+state.plot.norm &lt;- state.plot.norm + scale_color_manual(values = c(darkblue = &quot;darkblue&quot;), 
+    guide = &quot;none&quot;)
+state.plot.norm &lt;- state.plot.norm + scale_x_date(breaks = &quot;5 years&quot;, labels = date_format(&quot;%Y&quot;))
+state.plot.norm &lt;- state.plot.norm + xlab(&quot;Years&quot;)
+state.plot.norm &lt;- state.plot.norm + ylab(&quot;Per Capita Sightings (2000 Census)&quot;)
+state.plot.norm &lt;- state.plot.norm + ggtitle(&quot;Per Capita UFO sightings by Month-Year and U.S. State (1990-2010)&quot;)
+</code></pre>
+
+<p>We just replace the data being mapped to the y-axis with the new <code>Sightings.Norm</code> column, and update our labels accordingly.</p>
+
+    </article>
+	  <article class = "" id = "slide-27"> 
+	    
+<div class="rimage default"><img src="figure/facet_plot_plot_2.png"  class="plot" /></div>
+
+    </article>
+	  <article class = "" id = "slide-28"> 
+	    <h1>What happened in AZ in the mid-90&#39;s?</h1>
+
+
+    </article>
+	  <article class = "" id = "slide-29"> 
+	    
+<p>If you Google &quot;arizona ufo&quot; it auto-suggests &quot;arizona ufo 1997&quot;...</p>
+
+<div style="border: 1px solid black; margin-left: auto; margin-right: auto;"><img src="assets/media/lights.png" width=770px></div>
+
+<blockquote>
+<p>...a series of widely sighted unidentified flying objects observed in the skies over the U.S. states of Arizona, Nevada and the Mexican state of Sonora on March 13, 1997.</p>
+</blockquote>
+
+    </article>
+  </section>
+</body>
+  <!-- LOAD JAVASCRIPTS  -->
+	<script src='/Library/Frameworks/R.framework/Versions/2.15/Resources/library/slidify/libraries/html5slides/default/slides.js'></script>
+	<!-- LOAD MATHJAX JS -->
+  <script type="text/x-mathjax-config">
+     MathJax.Hub.Config({
+       tex2jax: {
+         inlineMath: [['$','$'], ['\\(','\\)']],
+         processEscapes: true
+       }
+     });
+  </script>
+  <script type="text/javascript"  
+src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  </script>
+  <!-- DONE LOADING MATHJAX -->
+	  <!-- LOAD HIGHLIGHTER JS FILES -->
+  <script src="/Library/Frameworks/R.framework/Versions/2.15/Resources/library/slidify/libraries/highlight.js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- DONE LOADING CSS FILES AND JS -->
+
+		
+	
+</html>
+
