@@ -3,3 +3,8 @@
 code_check*
 nohup.out
 +*.pdf
+slides/01-Slides/cache
+slides/01-Slides/data
+slides/05-Slides/cache
+
+
