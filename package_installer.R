@@ -16,6 +16,8 @@
 # Create a vector containing all of the packages that will be used in the case studies
 # (in no particular order)
 
+options(repos=structure(c(CRAN="http://cran.stat.auckland.ac.nz/")))
+
 cran.packages <- c("e1071",
                    "ggplot2",
                    "glmnet",
