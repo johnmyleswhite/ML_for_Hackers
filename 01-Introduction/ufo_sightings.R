@@ -100,7 +100,7 @@ ufo <- transform(ufo,
                  USState = location.matrix[, 2],
                  stringsAsFactors = FALSE)
 
-# Next step, we will strip out non-US incients
+# Next step, we will strip out non-US incidents
 
 # Insert NA's where there are non-US cities
 ufo$USState <- state.abb[match(ufo$USState, state.abb)]
