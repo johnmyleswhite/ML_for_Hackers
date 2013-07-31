@@ -20,7 +20,8 @@
 library('ggplot2')
 
 # First code snippet
-prices <- read.csv(file.path('data', 'stock_prices.csv'))
+prices <- read.csv(file.path('data', 'stock_prices.csv'),
+                   stringsAsFactors = FALSE)
 
 prices[1, ]
 # Date Stock Close
@@ -43,7 +44,7 @@ prices <- subset(prices, Stock != 'DDR')
 date.stock.matrix <- cast(prices, Date ~ Stock, value = 'Close')
 
 # Fifth code snippet
-cor.matrix <- cor(date.stock.matrix[,2:ncol(date.stock.matrix)])
+cor.matrix <- cor(date.stock.matrix[, 2:ncol(date.stock.matrix)])
 correlations <- as.numeric(cor.matrix)
 
 ggplot(data.frame(Correlation = correlations),
@@ -52,7 +53,7 @@ ggplot(data.frame(Correlation = correlations),
   theme(legend.position = 'none')
 
 # Sixth code snippet
-pca <- princomp(date.stock.matrix[,2:ncol(date.stock.matrix)])
+pca <- princomp(date.stock.matrix[, 2:ncol(date.stock.matrix)])
 
 # Seventh code snippet
 #Call:
@@ -83,7 +84,8 @@ ggplot(data.frame(Loading = loadings),
 market.index <- predict(pca)[, 1]
 
 # Eleventh code snippet
-dji.prices <- read.csv(file.path('data', 'DJI.csv'))
+dji.prices <- read.csv(file.path('data', 'DJI.csv'),
+                       stringsAsFactors = FALSE)
 dji.prices <- transform(dji.prices, Date = ymd(Date))
 
 # Twelfth code snippet
