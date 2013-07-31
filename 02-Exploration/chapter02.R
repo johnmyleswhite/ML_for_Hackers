@@ -260,7 +260,7 @@ ggplot(heights.weights, aes(x = Height)) +
 #
 
 ggplot(heights.weights, aes(x = Height)) +
-  geom_histogram(binwidth = 0.001)
+  geom_histogram(binwidth = 0.01)
 
 #
 # Snippet 23
