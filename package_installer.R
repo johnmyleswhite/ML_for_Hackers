@@ -33,7 +33,7 @@ cran.packages <- c("e1071",
                    "tm",
                    "XML")
 
-cat("This script will now attempt to install all of the R packages used in 'Machine Learning for Hackers'")
+cat("This script will now attempt to install all of the R packages used in 'Machine Learning for Hackers'\n")
 
 for(p in cran.packages) {
     if(!suppressWarnings(require(p, character.only = TRUE, quietly = TRUE))) {
