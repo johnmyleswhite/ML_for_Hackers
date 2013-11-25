@@ -237,7 +237,7 @@ propose.modified.cipher <- function(cipher)
 # Seventeenth code snippet
 load(file.path('data', 'lexical_database.Rdata'))
 
-# Eighteength code snippet
+# Eighteenth code snippet
 lexical.database[['a']]
 lexical.database[['the']]
 lexical.database[['he']]
