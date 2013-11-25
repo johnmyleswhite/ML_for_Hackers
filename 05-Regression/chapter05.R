@@ -18,6 +18,7 @@
 # Otherwise you will see errors when loading data or saving figures!
 
 library('ggplot2')
+dir.create("images")
 
 # First snippet
 ages <- read.csv(file.path('data', 'longevity.csv'))
