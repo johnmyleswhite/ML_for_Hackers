@@ -20,7 +20,7 @@
 # NOTE: If you are running this in the R console you must use the 'setwd' command to set the 
 # working directory for the console to whereever you have saved this file prior to running.
 # Otherwise you will see errors when loading data or saving figures!
-                                   
+                       
 # Load libraries
 library('tm')
 library('ggplot2')
@@ -145,8 +145,9 @@ priority.train <- priority.df[1:(round(nrow(priority.df) / 2)), ]
 # We begin with the simpliest: who the email is from.
 
 # Calculate the frequency of correspondence with all emailers in the training set
-from.weight <- ddply(priority.train, .(From.EMail),
-                     summarise, Freq = length(Subject))
+from.weight <- melt(with(priority.train, table(From.EMail)), 
+                    value.name="Freq")
+
 from.weight <- from.weight[with(from.weight, order(Freq)), ]
 
 # We take a subset of the from.weight data frame to show our most frequent 
