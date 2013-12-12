@@ -2,10 +2,21 @@
 
 This repository contains all of the code examples for [Machine Learning for Hackers](http://shop.oreilly.com/product/0636920018483.do) (2012).  The code may not appear exactly as it does in the text, as additional comments and modifications may have been added since publication.
 
+
+## Getting started ##
+
+To make sure you have all of the requite libraries run the `package_installer.R` script. In your R console type the following:
+
+	> source("package_installer.R")
+
+When running the installer inside R you will be asked where to save the library files.  If you'd like to install the libraries globally, you can run script at the command-line with admin privileges:
+
+	$ sudo RScript package_installer.R
+
 ## Authors ##
 
  - Drew Conway, Department of Politics, New York University [http://drewconway.com/](http://drewconway.com/)
- - John Myles White, Psychology Department, Princeton University [http://www.johnmyleswhite.com/](http://www.johnmyleswhite.com/)
+ - John Myles White, Data Science, Facebook [http://www.johnmyleswhite.com/](http://www.johnmyleswhite.com/)
 
 ## License ##
 
