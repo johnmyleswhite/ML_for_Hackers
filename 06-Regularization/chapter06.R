@@ -283,7 +283,7 @@ x <- seq(0, 1, by = 0.01)
 y <- sin(2 * pi * x) + rnorm(length(x), 0, 0.1)
 
 # Twentieth code snippet
-x <- matrix(x)
+x <- as.matrix(cbind(x,rev(x)))
 
 library('glmnet')
 
