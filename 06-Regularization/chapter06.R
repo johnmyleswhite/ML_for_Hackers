@@ -18,6 +18,7 @@
 # Otherwise you will see errors when loading data or saving figures!
 
 library('ggplot2')
+library('Hmisc')
 
 # First snippet
 set.seed(1)

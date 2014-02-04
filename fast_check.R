@@ -50,7 +50,9 @@ setwd('..')
 
 #cat("Checking Chapter 11 - SNA\n\n")
 #setwd('11-SNA')
-#source('chapter09.R')
+#source('01_google_sg.R')
+#source('02_twitter_net.R')
+#source('03_twitter_rec.R')
 #setwd('..')
 
 cat("Checking Chapter 12 - Model Comparison\n\n")

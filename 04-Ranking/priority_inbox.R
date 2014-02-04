@@ -129,6 +129,7 @@ pattern1 <- "%a, %d %b %Y %H:%M:%S"
 pattern2 <- "%d %b %Y %H:%M:%S"
 
 allparse.df$Date <- date.converter(allparse.df$Date, pattern1, pattern2)
+allparse.df$Date <- as.POSIXct(allparse.df$Date)
 
 # Convert emails and subjects to lower-case
 allparse.df$Subject <- tolower(allparse.df$Subject)
@@ -142,7 +143,7 @@ priority.df <- allparse.df[with(allparse.df, order(Date)), ]
 priority.train <- priority.df[1:(round(nrow(priority.df) / 2)), ]
 
 # The first step is to create rank weightings for all of the features.
-# We begin with the simpliest: who the email is from.
+# We begin with the simplest: who the email is from.
 
 # Calculate the frequency of correspondence with all emailers in the training set
 from.weight <- melt(with(priority.train, table(From.EMail)), 

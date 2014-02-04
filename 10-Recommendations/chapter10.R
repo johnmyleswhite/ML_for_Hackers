@@ -143,7 +143,7 @@ row.names(user.package.matrix) <- user.package.matrix[, 1]
 user.package.matrix <- user.package.matrix[, -1]
 
 # Tenth code snippet
-similarities <- cor(user.package.matrix)
+suppressWarnings(similarities <- cor(user.package.matrix))
 
 nrow(similarities)
 #[1] 2487
