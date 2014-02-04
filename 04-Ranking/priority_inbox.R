@@ -129,6 +129,7 @@ pattern1 <- "%a, %d %b %Y %H:%M:%S"
 pattern2 <- "%d %b %Y %H:%M:%S"
 
 allparse.df$Date <- date.converter(allparse.df$Date, pattern1, pattern2)
+allparse.df$Date <- as.POSIXct(allparse.df$Date)
 
 # Convert emails and subjects to lower-case
 allparse.df$Subject <- tolower(allparse.df$Subject)
