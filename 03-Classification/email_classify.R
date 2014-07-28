@@ -1,22 +1,22 @@
-# File-Name:       email_classify.R           
-# Date:            2012-02-10                                
+# File-Name:       email_classify.R
+# Date:            2012-02-10
 # Author:          Drew Conway (drew.conway@nyu.edu)
 # Purpose:         Code for Chapter 3. In this case we introduce the notion of binary classification.
-#                   In machine learning this is a method for determining what of two categories a 
-#                   given observation belongs to.  To show this, we will create a simple naive Bayes 
+#                   In machine learning this is a method for determining what of two categories a
+#                   given observation belongs to.  To show this, we will create a simple naive Bayes
 #                   classifier for SPAM email detection, and visualize the results.
 # Data Used:       Email messages contained in data/ directory, source: http://spamassassin.apache.org/publiccorpus/
 # Packages Used:   tm, ggplot2
 
-# All source code is copyright (c) 2012, under the Simplified BSD License.  
+# All source code is copyright (c) 2012, under the Simplified BSD License.
 # For more information on FreeBSD see: http://www.opensource.org/licenses/bsd-license.php
 
-# All images and materials produced by this code are licensed under the Creative Commons 
+# All images and materials produced by this code are licensed under the Creative Commons
 # Attribution-Share Alike 3.0 United States License: http://creativecommons.org/licenses/by-sa/3.0/us/
 
 # All rights reserved.
 
-# NOTE: If you are running this in the R console you must use the 'setwd' command to set the 
+# NOTE: If you are running this in the R console you must use the 'setwd' command to set the
 # working directory for the console to whereever you have saved this file prior to running.
 # Otherwise you will see errors when loading data or saving figures!
 
@@ -55,7 +55,7 @@ ggsave(plot = ex1,
        width = 10)
 
 # Return a single element vector of just the email body
-# This is a very simple approach, as we are only using 
+# This is a very simple approach, as we are only using
 # words as features
 get.msg <- function(path)
 {
@@ -68,8 +68,8 @@ get.msg <- function(path)
 }
 
 # Create a TermDocumentMatrix (TDM) from the corpus of SPAM email.
-# The TDM control can be modified, and the sparsity level can be 
-# altered.  This TDM is used to create the feature set used to do 
+# The TDM control can be modified, and the sparsity level can be
+# altered.  This TDM is used to create the feature set used to do
 # train our classifier.
 get.tdm <- function(doc.vec)
 {
@@ -82,8 +82,8 @@ get.tdm <- function(doc.vec)
   return(doc.dtm)
 }
 
-# This function takes a file path to an email file and a string, 
-# the term parameter, and returns the count of that term in 
+# This function takes a file path to an email file and a string,
+# the term parameter, and returns the count of that term in
 # the email body.
 count.word <- function(path, term)
 {
@@ -100,14 +100,14 @@ count.word <- function(path, term)
   return(ifelse(length(term.freq) > 0, term.freq, 0))
 }
 
-# This is the our workhorse function for classifying email.  It takes 
+# This is the our workhorse function for classifying email.  It takes
 # two required paramters: a file path to an email to classify, and
-# a data frame of the trained data.  The function also takes two 
+# a data frame of the trained data.  The function also takes two
 # optional parameters.  First, a prior over the probability that an email
 # is SPAM, which we set to 0.5 (naive), and constant value for the
 # probability on words in the email that are not in our training data.
 # The function returns the naive Bayes probability that the given email
-# is SPAM.  
+# is SPAM.
 classify.email <- function(path, training.df, prior = 0.5, c = 1e-6)
 {
   # Here, we use many of the support functions to get the
@@ -194,10 +194,10 @@ hardham.docs <- hardham.docs[which(hardham.docs != "cmds")]
 
 hardham.spamtest <- sapply(hardham.docs,
                            function(p) classify.email(file.path(hardham.path, p), training.df = spam.df))
-    
+
 hardham.hamtest <- sapply(hardham.docs,
                           function(p) classify.email(file.path(hardham.path, p), training.df = easyham.df))
-    
+
 hardham.res <- ifelse(hardham.spamtest > hardham.hamtest,
                       TRUE,
                       FALSE)
@@ -234,7 +234,7 @@ ggsave(plot = init.plot1,
        filename = file.path("images", "01_init_plot1.pdf"),
        width = 10,
        height = 10)
-    
+
 init.plot2 <- ggplot(init.df, aes(x = html, y = table)) +
   geom_point(aes(shape = type), position = "jitter") +
   scale_shape_manual(values = c("SPAM" = 1, "EASYHAM" = 3), name = "Email Type") +
