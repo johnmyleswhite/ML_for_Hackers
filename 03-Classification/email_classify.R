@@ -17,7 +17,7 @@
 # All rights reserved.
 
 # NOTE: If you are running this in the R console you must use the 'setwd' command to set the
-# working directory for the console to whereever you have saved this file prior to running.
+# working directory for the console to wherever you have saved this file prior to running.
 # Otherwise you will see errors when loading data or saving figures!
 
 # Load libraries
@@ -101,7 +101,7 @@ count.word <- function(path, term)
 }
 
 # This is the our workhorse function for classifying email.  It takes
-# two required paramters: a file path to an email to classify, and
+# two required parameters: a file path to an email to classify, and
 # a data frame of the trained data.  The function also takes two
 # optional parameters.  First, a prior over the probability that an email
 # is SPAM, which we set to 0.5 (naive), and constant value for the
@@ -188,7 +188,7 @@ easyham.df <- transform(easyham.df,
                         density = easyham.density,
                         occurrence = easyham.occurrence)
 
-# Run classifer against HARD HAM
+# Run classifier against HARD HAM
 hardham.docs <- dir(hardham.path)
 hardham.docs <- hardham.docs[which(hardham.docs != "cmds")]
 
@@ -247,7 +247,7 @@ ggsave(plot = init.plot2,
        width = 10,
        height = 10)
 
-# Finally, attempt to classify the HARDHAM data using the classifer developed above.
+# Finally, attempt to classify the HARDHAM data using the classifier developed above.
 # The rule is to classify a message as SPAM if Pr(email) = SPAM > Pr(email) = HAM
 spam.classifier <- function(path)
 {
