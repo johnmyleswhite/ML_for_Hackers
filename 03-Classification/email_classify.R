@@ -59,7 +59,9 @@ ggsave(plot = ex1,
 # words as features
 get.msg <- function(path)
 {
-  con <- file(path, open = "rt", encoding = "latin1")
+  # This following line fails on R 3.0.3, Win7 x64
+  # con <- file(path, open = "rt", encoding = "latin1")
+  con <- file(path, encoding = "latin1")
   text <- readLines(con)
   # The message always begins after the first full line break
   msg <- text[seq(which(text == "")[1] + 1, length(text), 1)]
