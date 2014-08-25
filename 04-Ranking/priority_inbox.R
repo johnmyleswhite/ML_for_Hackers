@@ -25,6 +25,7 @@
 library('tm')
 library('ggplot2')
 library('plyr')
+library('reshape2')
 
 # Set the global paths
 data.path <- file.path("..", "03-Classification", "data")
