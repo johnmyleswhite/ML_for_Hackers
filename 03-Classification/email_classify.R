@@ -120,12 +120,12 @@ classify.email <- function(path, training.df, prior = 0.5, c = 1e-6)
   # Now, we just perform the naive Bayes calculation
   if(length(msg.match) < 1)
   {
-    return(prior * c ^ (length(msg.freq)))
+    return (log10(prior) + length(msg.freq) * log10(c))
   }
   else
   {
     match.probs <- training.df$occurrence[match(msg.match, training.df$term)]
-    return(prior * prod(match.probs) * c ^ (length(msg.freq) - length(msg.match)))
+    return (log10(prior) + sum(log10(match.probs)) + (length(msg.freq) - length(msg.match)) * log10(c))
   }
 }
 
@@ -302,7 +302,7 @@ class.df$Class <- as.logical(as.numeric(class.df$Class))
 class.df$Type <- as.factor(class.df$Type)
 
 # Create final plot of results
-class.plot <- ggplot(class.df, aes(x = log(Pr.HAM), log(Pr.SPAM))) +
+class.plot <- ggplot(class.df, aes(x = Pr.HAM, Pr.SPAM)) +
     geom_point(aes(shape = Type, alpha = 0.5)) +
     stat_abline(yintercept = 0, slope = 1) +
     scale_shape_manual(values = c("EASYHAM" = 1,
