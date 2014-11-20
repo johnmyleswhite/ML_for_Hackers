@@ -10,7 +10,7 @@ The code in this book relies on several R libraries.  Two libraries, `RCurl` and
  - [http://curl.haxx.se/](curl) (for `RCurl`)
  - [http://xmlsoft.org/](libxml2-dev) (for `XML`)
 
-To make sure you have all of the requite libraries run the `package_installer.R` script. In your R console type the following:
+To make sure you have all of the required libraries run the `package_installer.R` script. In your R console type the following:
 
 	> source("package_installer.R")
 
