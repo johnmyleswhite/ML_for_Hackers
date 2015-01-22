@@ -184,7 +184,7 @@ all.sightings$Sightings[is.na(all.sightings$Sightings)] <- 0
 all.sightings$YearMonth <- as.Date(rep(date.range, length(state.abb)))
 
 # Capitalize the State abbreviation and set as factor
-all.sightings$State <- as.factor(all.sightings$State)
+all.sightings$State <- as.factor(toupper(all.sightings$State))
 
 # There are lots of ways we could test the seasonality of of these sightings, but one basic method is to 
 # inspect the trends visually.  We now construct a plot that will show these trends for all 50 U.S. states
