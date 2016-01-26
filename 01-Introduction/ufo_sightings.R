@@ -118,7 +118,7 @@ head(ufo.us)
 # We can do this by creating a histogram of frequencies for UFO sightings over time
 quick.hist <- ggplot(ufo.us, aes(x = DateOccurred)) +
   geom_histogram() + 
-  scale_x_date(breaks = "50 years")
+  scale_x_date(date_breaks = "50 years")
   
 ggsave(plot = quick.hist,
        filename = file.path("images", "quick_hist.pdf"),
