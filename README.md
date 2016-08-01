@@ -7,8 +7,8 @@ This repository contains all of the code examples for [Machine Learning for Hack
 
 The code in this book relies on several R libraries.  Two libraries, `RCurl` and `XML` require additional software to be installed:
 
- - [http://curl.haxx.se/](curl) (for `RCurl`)
- - [http://xmlsoft.org/](libxml2-dev) (for `XML`)
+ - (http://curl.haxx.se/)(curl) (for `RCurl`)
+ - (http://xmlsoft.org/)(libxml2-dev) (for `XML`)
 
 To make sure you have all of the requite libraries run the `package_installer.R` script. In your R console type the following:
 
