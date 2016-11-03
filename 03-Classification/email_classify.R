@@ -78,8 +78,8 @@ get.tdm <- function(doc.vec)
                   removeNumbers = TRUE,
                   minDocFreq = 2)
   doc.corpus <- Corpus(VectorSource(doc.vec))
-  doc.dtm <- TermDocumentMatrix(doc.corpus, control)
-  return(doc.dtm)
+  doc.tdm <- TermDocumentMatrix(doc.corpus, control)
+  return(doc.tdm)
 }
 
 # This function takes a file path to an email file and a string, 
