@@ -227,8 +227,8 @@ init.plot1 <- ggplot(init.df, aes(x = html, y = table)) +
   geom_point(aes(shape = type)) +
   scale_shape_manual(values = c("SPAM" = 1, "EASYHAM" = 3), name = "Email Type") +
   xlab("Frequency of 'html'") +
-  ylab("Freqeuncy of 'table'") +
-  stat_abline(yintersept = 0, slope = 1) +
+  ylab("Frequency of 'table'") +
+  geom_abline(yintersept = 0, slope = 1) +
   theme_bw()
 ggsave(plot = init.plot1,
        filename = file.path("images", "01_init_plot1.pdf"),
@@ -239,8 +239,8 @@ init.plot2 <- ggplot(init.df, aes(x = html, y = table)) +
   geom_point(aes(shape = type), position = "jitter") +
   scale_shape_manual(values = c("SPAM" = 1, "EASYHAM" = 3), name = "Email Type") +
   xlab("Frequency of 'html'") +
-  ylab("Freqeuncy of 'table'") +
-  stat_abline(yintersept = 0, slope = 1) +
+  ylab("Frequency of 'table'") +
+  geom_abline(yintersept = 0, slope = 1) +
   theme_bw()
 ggsave(plot = init.plot2,
        filename = file.path("images", "02_init_plot2.pdf"),
